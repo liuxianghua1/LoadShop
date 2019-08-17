@@ -27,6 +27,7 @@ export default {
     }
   },
   created() {
+    // 在页面加载的时候执行
     this.fetch();
   }
 };
