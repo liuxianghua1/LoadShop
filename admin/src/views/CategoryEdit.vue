@@ -24,21 +24,26 @@ export default {
   },
   methods: {
     async save() {
-      const res = await this.$http.post("categories", this.model);
-      this.$router.push('/categories/list');
+      let res;
+      if (this.id) {
+        res = await this.$http.put(`categories/${this.id}`, this.model);
+      } else {
+        res = await this.$http.post("categories", this.model);
+      }
+      this.$router.push("/categories/list");
       this.$message({
         type: "success",
         message: "保存成功"
       });
     },
-  async fetch() {
-    const res = await this.$http.get(`categories/${this.id}`)
-    this.model = res.data
-  }
+    async fetch() {
+      const res = await this.$http.get(`categories/${this.id}`);
+      this.model = res.data;
+    }
   },
 
   created() {
-    this.id && this.fetch()
-  },
+    this.id && this.fetch();
+  }
 };
 </script>
