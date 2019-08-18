@@ -26,7 +26,7 @@ module.exports = app => {
 
     // 查询分类数据 并且限制10条
     router.get('/categories', async (req, res) => {
-        const items = await Category.find().limit(10)
+        const items = await Category.find().populate('parent').limit(10)
         res.send(items)
     })
 
