@@ -6,8 +6,13 @@
       <el-table-column prop="name" label="分类名称"></el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
-          <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button> -->
-          <el-button type="primary" size="small" @click="$router.push(`/categories/edit/${scope.row._id}`)">编辑</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            @click="$router.push(`/categories/edit/${scope.row._id}`)"
+          >编辑</el-button>
+
+          <el-button type="primary" size="small" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -24,6 +29,32 @@ export default {
     async fetch() {
       const res = await this.$http.get("categories");
       this.items = res.data;
+    },
+
+    async remove(row) {
+      this.$confirm(`确定要删除分类吗"${row.name}"`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+      // 点击确定的事件
+        .then(async () => {
+          // 调用接口根据id删除一条数据
+          const res = await this.$http.delete(`categories/${row._id}`)
+          // 返回一条信息
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+          this.fetch()
+        })
+        // 点击取消的事件
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     }
   },
   created() {
