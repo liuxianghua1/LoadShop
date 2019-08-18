@@ -36,10 +36,10 @@ export default {
       let res;
       if (this.id) {
         // 如果有id 那就是更新
-        res = await this.$http.put(`categories/${this.id}`, this.model);
+        res = await this.$http.put(`rest/categories/${this.id}`, this.model);
       } else {
         // 否则就是直接添加 更新和添加共存到1个方法
-        res = await this.$http.post("categories", this.model);
+        res = await this.$http.post("rest/categories", this.model);
       }
       // 跳转页面
       this.$router.push("/categories/list");
@@ -50,13 +50,13 @@ export default {
       });
     },
     async fetch() {
-      const res = await this.$http.get(`categories/${this.id}`);
+      const res = await this.$http.get(`rest/categories/${this.id}`);
       // 把数据保存到data中
       this.model = res.data;
     },
 
     async fetchParents() {
-      const res = await this.$http.get(`categories`);
+      const res = await this.$http.get(`rest/categories`);
       // 把数据保存到data中
       this.parents = res.data;
     }

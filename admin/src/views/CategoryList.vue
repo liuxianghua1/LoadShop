@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const res = await this.$http.get("categories");
+      const res = await this.$http.get("rest/categories");
       this.items = res.data;
     },
 
@@ -42,7 +42,7 @@ export default {
       // 点击确定的事件
         .then(async () => {
           // 调用接口根据id删除一条数据
-          const res = await this.$http.delete(`categories/${row._id}`)
+          const res = await this.$http.delete(`rest/categories/${row._id}`)
           // 返回一条信息
           this.$message({
             type: "success",
