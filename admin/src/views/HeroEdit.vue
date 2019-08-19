@@ -2,9 +2,12 @@
   <div class="about">
     <h1>{{id ? '编辑' : '新建'}}英雄</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-
       <el-form-item label="名称">
-        <el-input v-model="model.name" placeholder="请输入内容"></el-input>
+        <el-input v-model="model.name"></el-input>
+      </el-form-item>
+
+      <el-form-item label="称号">
+        <el-input v-model="model.title"></el-input>
       </el-form-item>
 
       <el-form-item label="头像">
@@ -14,10 +17,71 @@
           :show-file-list="false"
           :on-success="afterUpload"
         >
-        <!-- 有图片就显示图片 否则只显示上传按钮 -->
+          <!-- 有图片就显示图片 否则只显示上传按钮 -->
           <img v-if="model.avatar" :src="model.avatar" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
+      </el-form-item>
+
+      <el-form-item label="类型">
+        <el-select v-model="model.categories" multiple>
+          <el-option
+            v-for="item of categories"
+            :key="item._id"
+            :value="item._id"
+            :label="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="难度">
+        <el-rate style="margin-top:0.6rem;" :max="9" show-score v-model="model.scores.difficult"></el-rate>
+      </el-form-item>
+
+      <el-form-item label="技能">
+        <el-rate style="margin-top:0.6rem;" :max="9" show-score v-model="model.scores.skills"></el-rate>
+      </el-form-item>
+
+      <el-form-item label="攻击">
+        <el-rate style="margin-top:0.6rem;" :max="9" show-score v-model="model.scores.attack"></el-rate>
+      </el-form-item>
+
+      <el-form-item label="生存">
+        <el-rate style="margin-top:0.6rem;" :max="9" show-score v-model="model.scores.survive"></el-rate>
+      </el-form-item>
+
+      <el-form-item label="顺风出装">
+        <el-select v-model="model.items1" multiple>
+          <el-option
+            v-for="item of items"
+            :key="item._id"
+            :value="item._id"
+            :label="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="逆风出装">
+        <el-select v-model="model.items2" multiple>
+          <el-option
+            v-for="item of items"
+            :key="item._id"
+            :value="item._id"
+            :label="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="使用技巧">
+        <el-input type="textarea" v-model="model.usageTips"></el-input>
+      </el-form-item>
+
+      <el-form-item label="对抗技巧">
+        <el-input type="textarea" v-model="model.battleTips"></el-input>
+      </el-form-item>
+
+      <el-form-item label="团战思路">
+        <el-input type="textarea" v-model="model.teamTips"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -34,9 +98,14 @@ export default {
   },
   data() {
     return {
+      categories: [],
+      items: [],
       model: {
-        name:'',
-        avatar: ''
+        name: "",
+        avatar: "",
+        scores: {
+          difficult: 0
+        }
       }
     };
   },
@@ -44,9 +113,9 @@ export default {
     afterUpload(res) {
       // 未定义可直接set
       // this.$set(this.model, 'avatar', res.url)
-      
+
       // model定义使用方法
-      this.model.avatar = res.url
+      this.model.avatar = res.url;
     },
     async save() {
       let res;
@@ -68,38 +137,51 @@ export default {
     async fetch() {
       const res = await this.$http.get(`rest/heroes/${this.id}`);
       // 把数据保存到data中
-      this.model = res.data;
-    }
+      // 不会全部替换数据 有同名就覆盖 无则不影响默认数据
+      this.model = Object.assign({}, this.model, res.data);
+    },
+    async fetchCategories() {
+      const res = await this.$http.get(`rest/categories`);
+      // 把数据保存到data中
+      this.categories = res.data;
+    },
+    async fetchItems() {
+      const res = await this.$http.get(`rest/items`);
+      // 把数据保存到data中
+      this.items = res.data;
+    },
   },
 
   created() {
+    this.fetchItems();
+    this.fetchCategories();
     // id得到后 在执行后面方法
     this.id && this.fetch();
   }
 };
 </script>
 <style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 </style>
