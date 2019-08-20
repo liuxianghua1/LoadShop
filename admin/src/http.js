@@ -11,6 +11,7 @@ http.interceptors.response.use(res => {
     if (err.response.data.message) {
         Vue.prototype.$message({
             type: 'error',
+            // 弹窗的内容 在status中的message定义
             message: err.response.data.message
         })
     }

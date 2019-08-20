@@ -2,11 +2,10 @@
   <div class="login-container">
     <el-card header="请先登录" class="login-card">
       <el-form @submit.native.prevent="login">
-
         <el-form-item label="用户名">
           <el-input v-model="model.username"></el-input>
         </el-form-item>
-        
+
         <el-form-item label="密码">
           <el-input type="password" v-model="model.password"></el-input>
         </el-form-item>
@@ -22,16 +21,23 @@
 export default {
   data() {
     return {
-      model: {},
-
-    }
+      model: {}
+    };
   },
   methods: {
-   async login() {
-      const res = await this.$http.post('login', this.model)
-      console.log(res.data)
+    async login() {
+      const res = await this.$http.post("login", this.model);
+      // 窗口关闭需重新登录
+      // sessionStorage.token = res.data.token
+      // 窗口关闭可继续使用
+      localStorage.token = res.data.token;
+      this.$router.push("/");
+      this.$message({
+        type: "success",
+        message: "登陆成功"
+      });
     }
-  },
+  }
 };
 </script>
 
