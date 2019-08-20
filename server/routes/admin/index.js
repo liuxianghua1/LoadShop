@@ -1,6 +1,7 @@
 module.exports = app => {
     const express = require('express')
     const jwt = require('jsonwebtoken')
+    const assert = require('http-assert')
     const AdminUser = require('../../models/AdminUser')
     const router = express.Router({
         mergeParams: true
@@ -31,10 +32,14 @@ module.exports = app => {
     router.get('/', async (req, res, next) => {
         // split分割空格 然后pop提取最后一个
         const token = String(req.headers.authorization || '').split(' ').pop()
+        assert(token, 401, '请先登录')
         // 解密 上面定义的token 然后解密到的就是数据库的用户id 然后下面在对应
         const { id } = jwt.verify(token, app.get('secret'))
+        assert(id, 401, '请先登录')
         // 挂载到req
         req.user = await AdminUser.findById(id)
+        assert(req.user, 401, '请先登录')
+
         await next()
     }, async (req, res) => {
         const queryOptions = {}
@@ -74,24 +79,22 @@ module.exports = app => {
         // 根据用户名找用户
         // select取出加密密码
         const user = await AdminUser.findOne({ username }).select('+password')
-        if (!user) {
-            //status:获取当前服务器的响应状态  200=>成功
-            return res.status(422).send({
-                message: '用户不存在'
-            })
-        }
+        assert(user, 422, '用户不存在')
 
         // 校验密码
         // bcryptjs的一个方法 明文密码和数据库密码比对
         const isValid = require('bcryptjs').compareSync(password, user.password)
-        if (!isValid) {
-            return res.status(422).send({
-                message: '密码错误'
-            })
-        }
+        assert(isValid, 422, '密码错误')
 
         // 返回token
         const token = jwt.sign({ id: user._id }, app.get('secret'))
         res.send({ token })
+    })
+
+    // 错误处理 捕获异常
+    app.use(async (err, req, res, next) => {
+        res.status(err.statusCode || 500).send({
+            message: err.message
+        })
     })
 }
