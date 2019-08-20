@@ -3,6 +3,12 @@ import Vue from 'vue';
 const http = axios.create({
     baseURL: 'http://localhost:3000/admin/api'
 })
+http.interceptors.request.use(function (config) {
+    config.headers.Authorization = 'Bearer ' + localStorage.token
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
 
 // 服务端返回错误 有message 就弹出
 http.interceptors.response.use(res => {

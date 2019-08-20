@@ -1,5 +1,7 @@
 module.exports = app => {
     const express = require('express')
+    const jwt = require('jsonwebtoken')
+    const AdminUser = require('../../models/AdminUser')
     const router = express.Router({
         mergeParams: true
     })
@@ -17,7 +19,7 @@ module.exports = app => {
         res.send(model)
     })
 
-    // 删除id来删除一条数据
+    // 根据id来删除一条数据
     router.delete('/:id', async (req, res) => {
         await req.Model.findByIdAndDelete(req.params.id, req.body)
         res.send({
@@ -26,7 +28,15 @@ module.exports = app => {
     })
 
     // 查询分类数据 并且限制10条
-    router.get('/', async (req, res) => {
+    router.get('/', async (req, res, next) => {
+        // split分割空格 然后pop提取最后一个
+        const token = String(req.headers.authorization || '').split(' ').pop()
+        // 解密 上面定义的token 然后解密到的就是数据库的用户id 然后下面在对应
+        const { id } = jwt.verify(token, app.get('secret'))
+        // 挂载到req
+        req.user = await AdminUser.findById(id)
+        await next()
+    }, async (req, res) => {
         const queryOptions = {}
         // 如果模型是个分类
         if (req.Model.modelName === 'Category') {
@@ -62,7 +72,6 @@ module.exports = app => {
     app.post('/admin/api/login', async (req, res) => {
         const { username, password } = req.body
         // 根据用户名找用户
-        const AdminUser = require('../../models/AdminUser')
         // select取出加密密码
         const user = await AdminUser.findOne({ username }).select('+password')
         if (!user) {
@@ -82,8 +91,7 @@ module.exports = app => {
         }
 
         // 返回token
-        const jwt = require('jsonwebtoken')
         const token = jwt.sign({ id: user._id }, app.get('secret'))
-        res.send({token})
+        res.send({ token })
     })
 }
