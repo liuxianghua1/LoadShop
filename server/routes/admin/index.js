@@ -51,11 +51,25 @@ module.exports = app => {
 
     const multer = require('multer')
     // 静态托管
-    const upload = multer({ dest: __dirname +'/../../uploads'})
+    const upload = multer({ dest: __dirname + '/../../uploads' })
     // 图片上传
     app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
         const file = req.file
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
+    })
+
+    app.post('/admin/api/login', async (req, res) => {
+        const { username, password } = req.body
+        // 根据用户名找用户 校验密码 返回token
+        const AdminUser = require('../../models/AdminUser')
+        const user = await AdminUser.findOne({ username })
+        if (!user) {
+            //status:获取当前服务器的响应状态  200=>成功
+            return res.status(422).send({
+                message: '用户不存在'
+            })
+        }
+
     })
 }
