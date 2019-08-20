@@ -29,19 +29,7 @@ module.exports = app => {
     })
 
     // 查询分类数据 并且限制10条
-    router.get('/', async (req, res, next) => {
-        // split分割空格 然后pop提取最后一个
-        const token = String(req.headers.authorization || '').split(' ').pop()
-        assert(token, 401, '请先登录')
-        // 解密 上面定义的token 然后解密到的就是数据库的用户id 然后下面在对应
-        const { id } = jwt.verify(token, app.get('secret'))
-        assert(id, 401, '请先登录')
-        // 挂载到req
-        req.user = await AdminUser.findById(id)
-        assert(req.user, 401, '请先登录')
-
-        await next()
-    }, async (req, res) => {
+    router.get('/', async (req, res) => {
         const queryOptions = {}
         // 如果模型是个分类
         if (req.Model.modelName === 'Category') {
@@ -57,24 +45,24 @@ module.exports = app => {
         const model = await req.Model.findById(req.params.id)
         res.send(model)
     })
+    // 登录校验中间件
+    const authMiddleware = require('../../middleware/auth')
 
-    app.use('/admin/api/rest/:resource', async (req, res, next) => {
-        const modelName = require('inflection').classify(req.params.resource)
-        req.Model = require(`../../models/${modelName}`)
-        next()
-    }, router)
+    const resourceMiddleware = require('../../middleware/resource')
+
+    app.use('/admin/api/rest/:resource', resourceMiddleware(), authMiddleware() , router)
 
     const multer = require('multer')
     // 静态托管
     const upload = multer({ dest: __dirname + '/../../uploads' })
     // 图片上传
-    app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
+    app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
         const file = req.file
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
     })
 
-    app.post('/admin/api/login', async (req, res) => {
+    app.post('/admin/api/login' , async (req, res) => {
         const { username, password } = req.body
         // 根据用户名找用户
         // select取出加密密码
