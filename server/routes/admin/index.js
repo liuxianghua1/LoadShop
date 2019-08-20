@@ -50,7 +50,9 @@ module.exports = app => {
     }, router)
 
     const multer = require('multer')
+    // 静态托管
     const upload = multer({ dest: __dirname +'/../../uploads'})
+    // 图片上传
     app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
         const file = req.file
         file.url = `http://localhost:3000/uploads/${file.filename}`
