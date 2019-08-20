@@ -18,7 +18,7 @@
       </el-form-item>
 
       <el-form-item label="详情">
-        <vue-editor v-model="model.body"></vue-editor>
+        <vue-editor v-model="model.body" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
       </el-form-item>
 
       <el-form-item>
@@ -46,6 +46,13 @@ export default {
     };
   },
   methods: {
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await this.$http.post("upload", formData);
+      Editor.insertEmbed(cursorLocation, "image", res.data.url);
+      resetUploader();
+    },
     async save() {
       let res;
       if (this.id) {
