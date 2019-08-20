@@ -2,7 +2,7 @@
   <div class="about">
     <h1>{{id ? '编辑' : '新建'}}英雄</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <el-tabs type="border-card" value="skills">
+      <el-tabs type="border-card" value="basic">
         <!-- 基本信息开始 -->
         <el-tab-pane label="基本信息" name="basic">
           <el-form-item label="名称">
