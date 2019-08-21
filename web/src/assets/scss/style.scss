@@ -1,3 +1,6 @@
+@import './variables';
+
+
 // reset
 * {
     box-sizing: border-box;
@@ -20,16 +23,6 @@ a {
     color: #999;
 }
 
-// colors
-$colors: ("primary": #db9e3f,
-    "white": #fff,
-    "ligth": #f9f9f9,
-    "grey": #999,
-    "grey-1": #666,
-    "dark-1": #343440,
-    "dark": #222,
-    "black": #000,
-);
 
 @each $colorKey,
 $color in $colors {
@@ -45,19 +38,9 @@ $color in $colors {
 // texts
 @each $var in (left, center, right) {
     .text-#{$var} {
-        text-align: $var;
+        text-align: $var !important;
     }
 }
-
-// font size
-$base-font-size: 1rem;
-$font-sizes: (xxs: 0.6154,
-    xs: 0.7692, //10px
-    sm: 0.9231, //12px
-    md: 1, //13px
-    lg: 1.0769, //14px
-    xl: 1.2308, //16px
-);
 
 @each $sizeKey,
 $size in $font-sizes {
@@ -75,12 +58,6 @@ $size in $font-sizes {
     flex-direction: column;
 }
 
-$flex-jc: (start: flex-start,
-    end: flex-end,
-    center: center,
-    between: space-between,
-    around: space-around);
-
 @each $key,
 $value in $flex-jc {
     .jc-#{$key} {
@@ -88,11 +65,6 @@ $value in $flex-jc {
     }
 }
 
-$flex-ai: (start: flex-start,
-    end: flex-end,
-    center: center,
-    stretch: stretch,
-);
 
 @each $key,
 $value in $flex-jc {
@@ -109,21 +81,6 @@ $value in $flex-jc {
     flex-grow: 1;
 }
 
-// spacing
-
-$spacing-types: (m: margin,
-    p: padding);
-$spacing-directions: (t: top,
-    r: right,
-    b: bottom,
-    l: left);
-$spacing-base-size: 1rem;
-$spacing-sizes: (0: 0,
-    1: 0.25,
-    2: 0.5,
-    3: 1,
-    4: 1.5,
-    5: 3);
 
 @each $typeKey,
 $type in $spacing-types {
@@ -176,9 +133,19 @@ $type in $spacing-types {
     .nav-item {
         border-bottom: 3px solid transparent;
         padding-bottom: 0.2rem;
+
         &.active {
             border-bottom: 3px solid #FFF;
         }
     }
 
+}
+
+// width height
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
 }
