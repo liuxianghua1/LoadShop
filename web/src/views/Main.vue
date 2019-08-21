@@ -8,6 +8,7 @@
       </div>
       <button type="button" class="btn bg-primary">立即下载</button>
     </div>
+    
     <div class="bg-primary pt-3 pb-2">
       <div class="nav nav-inverse pb-1 jc-around">
         <div class="nav-item active">
@@ -29,5 +30,10 @@
 <script>
 export default {};
 </script>
-<style>
+<style lang="scss">
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 999 ;
+}
 </style>
