@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <swiper :options="swiperOption">
       <swiper-slide>
         <img class="w-100" src="../assets/images/54be0dc89324bc002fb52ce668338ab2.jpeg" />
@@ -15,7 +13,6 @@
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
     </swiper>
     <!-- end of swiper -->
-
 
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
       <div class="d-flex flex-wrap">
@@ -36,7 +33,53 @@
     </div>
     <!-- end nav icons -->
 
-    <i class="iconfont icon-card-hero"></i>
+    <m-card icon="Menu" title="新闻资讯">
+      <div class="nav jc-between">
+        <div class="nav-item active">
+          <div class="nav-link">热门</div>
+        </div>
+
+        <div class="nav-item">
+          <div class="nav-link">新闻</div>
+        </div>
+
+        <div class="nav-item">
+          <div class="nav-link">公告</div>
+        </div>
+
+        <div class="nav-item">
+          <div class="nav-link">活动</div>
+        </div>
+
+        <div class="nav-item">
+          <div class="nav-link">赛事</div>
+        </div>
+      </div>
+
+      <div class="pt-3">
+        <swiper>
+          <swiper-slide v-for="m in 5" :key="m">
+            <div class="py-2" v-for="n in 5" :key="n">
+              <span>[新闻]</span>
+              <span>|</span>
+              <span>开启王者时刻异常闪退问题说明公告</span>
+              <span>06/02</span>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
+    </m-card>
+    <!-- end news card -->
+
+    <m-card icon="Menu" title="英雄列表">
+    </m-card>
+    <!-- end hero card -->
+
+    <m-card icon="Menu" title="精彩视频">
+    </m-card>
+
+    <m-card icon="Menu" title="图文攻略">
+    </m-card>
 
   </div>
 </template>
