@@ -1,5 +1,7 @@
 <template>
   <div>
+
+
     <swiper :options="swiperOption">
       <swiper-slide>
         <img class="w-100" src="../assets/images/54be0dc89324bc002fb52ce668338ab2.jpeg" />
@@ -13,6 +15,8 @@
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
     </swiper>
     <!-- end of swiper -->
+
+
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
       <div class="d-flex flex-wrap">
         <div class="nav-item mb-3" v-for="n in 10" :key="n">
@@ -30,6 +34,10 @@
         <span>收起</span>
       </div>
     </div>
+    <!-- end nav icons -->
+
+    <i class="iconfont icon-card-hero"></i>
+
   </div>
 </template>
 <script>
