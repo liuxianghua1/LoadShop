@@ -35,13 +35,13 @@
 
     <!-- end news card -->
 
-    <m-list-card icon="Menu" title="新闻" :categories="newsCats">
+    <m-list-card icon="Menu" title="新闻咨询" :categories="newsCats">
       <template #items="{category}">
-        <div class="py-2" v-for="(news, i) in category.newsList" :key="i">
-          <span>[{{news.categoryName}}]</span>
-          <span>|</span>
-          <span>{{news.title}}</span>
-          <span>{{news.date}}</span>
+        <div class="py-2 fs-lg d-flex" v-for="(news, i) in category.newsList" :key="i">
+          <span class="text-info-1">[{{news.CategoryName}}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
+          <span class="text-grey-1 fs-sm">{{news.createdAt | date}}</span>
         </div>
       </template>
     </m-list-card>
@@ -55,7 +55,14 @@
   </div>
 </template>
 <script>
+import dayjs from 'dayjs'
 export default {
+  filters: {
+    date(val) {
+      // 过滤器过滤时间格式
+      return dayjs(val).format('MM/DD')
+    }
+  },
   data() {
     return {
       swiperOption: {
@@ -63,49 +70,18 @@ export default {
           el: ".pagination-home"
         }
       },
-      newsCats: [
-        {
-          name: "热门",
-          newsList: new Array(5).fill(1).map(v => ({
-            categoryName: "公告",
-            title: "今日韩信加强 反杀所以刺客",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "新闻",
-          newsList: new Array(5).fill(1).map(v => ({
-            categoryName: "新闻",
-            title: "今日韩信加强 反杀所以刺客",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "热门",
-          newsList: new Array(5).fill(1).map(v => ({
-            categoryName: "公告",
-            title: "今日1111111韩信加强 反杀所以刺客",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "热门",
-          newsList: new Array(5).fill(1).map(v => ({
-            categoryName: "公告",
-            title: "今日韩信加强 反杀所以刺客",
-            date: "06/01"
-          }))
-        },
-        {
-          name: "活动",
-          newsList: new Array(5).fill(1).map(v => ({
-            categoryName: "公告",
-            title: "今日韩信加强 反杀所以刺客",
-            date: "06/01"
-          }))
-        }
-      ]
+      newsCats: []
     };
+  },
+
+  methods: {
+    async fetchNewsCate() {
+      const res = await this.$http.get('news/list')
+      this.newsCats = res.data
+    }
+  },
+  created() {
+    this.fetchNewsCate();
   }
 };
 </script>
