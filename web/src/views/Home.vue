@@ -1,6 +1,6 @@
 <template>
   <div>
-    <swiper :options="swiperOption">
+    <swiper :options="swiperOption" autoplay>
       <swiper-slide>
         <img class="w-100" src="../assets/images/54be0dc89324bc002fb52ce668338ab2.jpeg" />
       </swiper-slide>
@@ -79,6 +79,10 @@ export default {
   data() {
     return {
       swiperOption: {
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false
+        },
         pagination: {
           el: ".pagination-home"
         }
