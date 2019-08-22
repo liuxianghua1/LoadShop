@@ -33,8 +33,6 @@
     </div>
     <!-- end nav icons -->
 
-    <!-- end news card -->
-
     <m-list-card icon="Menu" title="新闻咨询" :categories="newsCats">
       <template #items="{category}">
         <div class="py-2 fs-lg d-flex" v-for="(news, i) in category.newsList" :key="i">
@@ -45,8 +43,23 @@
         </div>
       </template>
     </m-list-card>
+    <!-- end news card -->
 
-    <m-card icon="Menu" title="英雄列表"></m-card>
+    <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
+      <template #items="{category}">
+        <div class="d-flex flex-wrap" style="maargin:0 -0.5rem;">
+          <div
+            class="p-2 text-center"
+            style="width:20%"
+            v-for="(hero, i) in category.heroList"
+            :key="i"
+          >
+            <img :src="hero.avatar" class="w-100" />
+            <div>{{hero.name}}</div>
+          </div>
+        </div>
+      </template>
+    </m-list-card>
     <!-- end hero card -->
 
     <m-card icon="Menu" title="精彩视频"></m-card>
@@ -55,12 +68,12 @@
   </div>
 </template>
 <script>
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 export default {
   filters: {
     date(val) {
       // 过滤器过滤时间格式
-      return dayjs(val).format('MM/DD')
+      return dayjs(val).format("MM/DD");
     }
   },
   data() {
@@ -70,18 +83,24 @@ export default {
           el: ".pagination-home"
         }
       },
-      newsCats: []
+      newsCats: [],
+      heroCats: []
     };
   },
 
   methods: {
     async fetchNewsCate() {
-      const res = await this.$http.get('news/list')
-      this.newsCats = res.data
+      const res = await this.$http.get("news/list");
+      this.newsCats = res.data;
+    },
+    async fetchHeroCate() {
+      const res = await this.$http.get("heroes/list");
+      this.heroCats = res.data;
     }
   },
   created() {
     this.fetchNewsCate();
+    this.fetchHeroCate();
   }
 };
 </script>
