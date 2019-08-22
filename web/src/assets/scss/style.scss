@@ -23,6 +23,9 @@ a {
     color: #999;
 }
 
+p {
+    line-height: 1.5em;
+}
 
 @each $colorKey,
 $color in $colors {
@@ -143,19 +146,23 @@ $type in $spacing-types {
 
 .nav {
     display: flex;
+
     .nav-item {
         border-bottom: 3px solid transparent;
         padding-bottom: 0.2rem;
+
         &.active {
             color: map-get($colors, 'primary');
             border-bottom-color: map-get($colors, 'primary');
         }
     }
+
     &.nav-inverse {
         .nav-item {
-            color: map-get($colors, 'white' );
+            color: map-get($colors, 'white');
+
             &.active {
-            border-bottom-color: map-get($colors, 'white');
+                border-bottom-color: map-get($colors, 'white');
             }
         }
     }
@@ -195,6 +202,12 @@ $type in $spacing-types {
         background-position: 38.577% 52.076%;
 
     }
+}
 
+// borders
 
+@each $dir in (top, right, bottom, left) {
+    .border-#{$dir} {
+        border-#{$dir}: 1px solid $border-color;
+    }
 }
