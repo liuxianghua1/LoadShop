@@ -60,7 +60,7 @@ module.exports = app => {
             name: '热门',
             newsList: await Article.find().where({
                 categories: { $in: subCats }
-            }).populate('categories').limit(5).lean()
+            }).populate('categories').sort([['_id',-1]]).limit(5).lean()
         })
         cats.map(cat => {
             cat.newsList.map(news => {
@@ -132,7 +132,7 @@ module.exports = app => {
         const data = await Article.findById(req.params.id).lean()
         data.related = await Article.find().where({
             categories: { $in: data.categories }
-        }).limit(2)
+        }).limit(4)
         res.send(data)
     })
 

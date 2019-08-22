@@ -36,7 +36,7 @@ module.exports = app => {
             // 那就加个populate parent 给他查出来 否则不加
             queryOptions.populate = 'parent'
         }
-        const items = await req.Model.find().setOptions(queryOptions).limit(100)
+        const items = await req.Model.find().setOptions(queryOptions).sort([['_id', -1]]).limit(100)
         res.send(items)
     })
 
@@ -50,7 +50,7 @@ module.exports = app => {
 
     const resourceMiddleware = require('../../middleware/resource')
 
-    app.use('/admin/api/rest/:resource', resourceMiddleware(), authMiddleware() , router)
+    app.use('/admin/api/rest/:resource', resourceMiddleware(), authMiddleware(), router)
 
     const multer = require('multer')
     // 静态托管
@@ -62,7 +62,7 @@ module.exports = app => {
         res.send(file)
     })
 
-    app.post('/admin/api/login' , async (req, res) => {
+    app.post('/admin/api/login', async (req, res) => {
         const { username, password } = req.body
         // 根据用户名找用户
         // select取出加密密码
