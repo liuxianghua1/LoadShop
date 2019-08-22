@@ -8,7 +8,7 @@
       </div>
     <router-link to="/" tag="div">更多英雄 &gt;</router-link>
     </div>
-    <h1>{{model.name}}</h1>
+    <div>{{model.name}}</div>
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
        async fetch() {
            const res = await this.$http.get(`heroes/${this.id}`)
            this.model = res.data
+           console.log(this.model)
         }
     },
     created() {
