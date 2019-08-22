@@ -4,7 +4,7 @@
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
-
+    
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
           <el-button
@@ -38,16 +38,16 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-      // 点击确定的事件
+        // 点击确定的事件
         .then(async () => {
           // 调用接口根据id删除一条数据
-          const res = await this.$http.delete(`rest/articles/${row._id}`)
+          const res = await this.$http.delete(`rest/articles/${row._id}`);
           // 返回一条信息
           this.$message({
             type: "success",
             message: "删除成功!"
           });
-          this.fetch()
+          this.fetch();
         })
         // 点击取消的事件
         .catch(() => {

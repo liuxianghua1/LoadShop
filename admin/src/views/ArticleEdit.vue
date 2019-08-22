@@ -46,6 +46,7 @@ export default {
     };
   },
   methods: {
+    // 上传图片
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       const formData = new FormData();
       formData.append("file", file);
