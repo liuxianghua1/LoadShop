@@ -1,4 +1,5 @@
 <template>
+
   <div class="about">
     <h1>英雄列表</h1>
     <el-table :data="items">
@@ -20,7 +21,7 @@
             @click="$router.push(`/heroes/edit/${scope.row._id}`)"
           >编辑</el-button>
 
-          <el-button type="primary" size="small" @click="remove(scope.row)">删除</el-button>
+          <el-button type="danger" size="small" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -28,6 +29,7 @@
 </template>
 <script>
 export default {
+
   data() {
     return {
       items: []

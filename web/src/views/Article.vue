@@ -3,7 +3,7 @@
     <div class="d-flex py-3 ai-center px-2 border-bottom">
       <div class="iconfont icon-back text-blue" @click="back"></div>
       <strong class="flex-1 text-blue pl-2 mr-2">{{model.title}}</strong>
-      <div class="text-grey fs-x">2019-06-19</div>
+      <div class="text-grey fs-x">{{model.createdAt | date}}</div>
     </div>
     <div v-html="model.body" class="px-3 body fs-lg"></div>
 
@@ -27,7 +27,14 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 export default {
+  filters: {
+    date(val) {
+      // 过滤器过滤时间格式
+      return dayjs(val).format("YYYY-MM-DD");
+    }
+  },
   props: {
     id: { required: true }
   },
