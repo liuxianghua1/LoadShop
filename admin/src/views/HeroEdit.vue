@@ -211,7 +211,7 @@ export default {
         res = await this.$http.post("rest/heroes", this.model);
       }
       // 跳转页面
-      // this.$router.push("/heroes/list");
+      this.$router.push("/heroes/list");
       // 发送一个可视化提示信息
       this.$message({
         type: "success",
