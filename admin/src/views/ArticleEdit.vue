@@ -92,3 +92,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.ql-snow .ql-picker {
+  height: 43px !important;
+}
+</style>

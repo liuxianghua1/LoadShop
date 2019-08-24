@@ -1,15 +1,18 @@
 <template>
   <div>
-    <swiper :options="swiperOption" autoplay>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/54be0dc89324bc002fb52ce668338ab2.jpeg" />
+    <swiper :options="swiperOption" v-for="(item, i) in swiper" :key="i" autoplay>
+      <swiper-slide >
+        <img class="w-100" :src="item.items[0].image" />
       </swiper-slide>
       <swiper-slide>
-        <img class="w-100" src="../assets/images/63363be7b59c38154c0f48671d9169fd.jpeg" />
+        <img class="w-100" :src="item.items[1].image" />
       </swiper-slide>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/d0d82f2c7b4e0d6e4006187a87af2601.jpeg" />
+      <swiper-slide >
+        <img class="w-100" :src="item.items[2].image" />
       </swiper-slide>
+      <!-- <swiper-slide >
+        <img class="w-100" :src="item.items[3].image" />
+      </swiper-slide> -->
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
     </swiper>
     <!-- end of swiper -->
@@ -43,7 +46,7 @@
           :key="i"
         >
           <span class="text-info-1">[{{news.CategoryName}}]</span>
-          <span class="px-2">|</span> 
+          <span class="px-2">|</span>
           <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
           <span class="text-grey-1 fs-sm">{{news.createdAt | date}}</span>
         </router-link>
@@ -98,7 +101,8 @@ export default {
         }
       },
       newsCats: [],
-      heroCats: []
+      heroCats: [],
+      swiper: []
     };
   },
 
@@ -110,9 +114,15 @@ export default {
     async fetchHeroCate() {
       const res = await this.$http.get("heroes/list");
       this.heroCats = res.data;
+    },
+    async fetchSwiper() {
+      const res = await this.$http.get("swiper/list");
+      this.swiper = res.data;
+      console.log(this.swiper);
     }
   },
   created() {
+    this.fetchSwiper();
     this.fetchNewsCate();
     this.fetchHeroCate();
   }

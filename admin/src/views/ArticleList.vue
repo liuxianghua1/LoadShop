@@ -7,7 +7,9 @@
       <el-table-column label="文章内容">
         <template slot-scope="scope">
           <!-- <span>{{scope.row.body}}</span> -->
-          <div class="textDiv" v-html="scope.row.body" style="width:100%;height:61.8px" ></div>
+          <div class="textDiv" style="width:100%;height:61.8px" >
+            <span v-html="scope.row.body" ></span>
+          </div>
         </template>
       </el-table-column>
       <el-table-column label="发布时间">
@@ -89,7 +91,6 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    height: 1rem;
   }
 }
 </style>
