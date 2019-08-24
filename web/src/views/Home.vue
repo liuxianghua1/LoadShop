@@ -106,7 +106,6 @@ export default {
     async fetchNewsCate() {
       const res = await this.$http.get("news/list");
       this.newsCats = res.data;
-      console.log(this.newsCats);
     },
     async fetchHeroCate() {
       const res = await this.$http.get("heroes/list");
