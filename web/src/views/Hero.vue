@@ -34,16 +34,13 @@
       <div class="px-3 bg-white">
         <div class="nav d-flex jc-around pt-3 pb-2 border-bottom">
           <div class="nav-item active">
-            <div class="nav-link">英雄初始</div>
+            <div class="nav-link" >英雄初始</div>
           </div>
 
-          <div class="nav-item">
-            <div class="nav-link">进阶攻略</div>
-          </div>
         </div>
       </div>
-      <swiper>
-        <swiper-slide>
+      <!-- <swiper>
+        <swiper-slide> -->
           <div>
             <!-- 技能专区 -->
             <div class="p-3 bg-white border-bottom">
@@ -131,9 +128,9 @@
             </m-card>
             <!-- 英雄关系结束 -->
           </div>
-        </swiper-slide>
+        <!-- </swiper-slide>
         <swiper-slide></swiper-slide>
-      </swiper>
+      </swiper> -->
     </div>
   </div>
 </template>
@@ -146,8 +143,8 @@ export default {
   data() {
     return {
       model: null,
-      currentSkillIndex: 0
-    };
+      currentSkillIndex: 0,
+        };
   },
   methods: {
     async fetch() {

@@ -36,11 +36,18 @@ module.exports = app => {
         //         path: 'newsList'
         //     }
         // }).lean()
+
+        // db.express_info.aggregate([
+        //     { $match: { "mobile": "18663930231" } },
+        //      { $group: { _id: "$express_code", date_time: { $first: "$datetime" },
+        //       express_code: { $first: "$express_code" }, num_tutorial: { $sum: 1 } } }, { $sort: { "datetime": -1 } }])
         const parent = await Category.findOne({
             name: '新闻分类'
         })
         const cats = await Category.aggregate([
-            { $match: { parent: parent._id } },
+            {
+                $match: { parent: '' }
+            },
             {
                 $lookup: {
                     from: 'articles',
@@ -51,17 +58,41 @@ module.exports = app => {
             },
             {
                 $addFields: {
-                    newsList: { $slice: ['$newsList', 5] }
-                }
-            }
+                    newsList: { $slice: ['$newsList', 5] },
+                },
+            },
         ])
-        const subCats = cats.map(v => v._id)
+        const hotNews = ['5d58c48135942c2abc9d0525','5d58c5ba21ce7847a4252be3','5d5d44b46395133f38a61fa9','5d5d44b96395133f38a61faa']
+        const subCats = hotNews.map(v => v) //新闻 公告 活动 赛事
         cats.unshift({
             name: '热门',
             newsList: await Article.find().where({
                 categories: { $in: subCats }
-            }).populate('categories').sort([['_id', -1]]).limit(5).lean()
-        })
+            }).populate('categories').sort({'_id': -1}).limit(5).lean()
+        }
+            , {
+                name: '新闻',
+                newsList: await Article.find().where({
+                    categories: { $in: hotNews[0] }
+                }).populate('categories').sort({'_id': -1}).limit(5).lean()
+            }, {
+                name: '公告',
+                newsList: await Article.find().where({
+                    categories: { $in: hotNews[1] }
+                }).populate('categories').sort({'_id': -1}).limit(5).lean()
+            }, {
+                name: '活动',
+                newsList: await Article.find().where({
+                    categories: { $in: hotNews[2] }
+                }).populate('categories').sort({'_id': -1}).limit(5).lean()
+            }, {
+                name: '赛事',
+                newsList: await Article.find().where({
+                    categories: { $in: hotNews[3] }
+                }).populate('categories').sort({'_id': -1}).limit(5).lean()
+            }
+
+        )
         cats.map(cat => {
             cat.newsList.map(news => {
                 news.CategoryName = (cat.name === '热门') ? news.categories[0].name : cat.name

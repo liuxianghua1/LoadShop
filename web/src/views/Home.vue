@@ -33,11 +33,17 @@
     </div>
     <!-- end nav icons -->
 
-    <m-list-card icon="Menu" title="新闻咨询" :categories="newsCats">
+    <m-list-card icon="Menu" title="新闻资讯" :categories="newsCats">
       <template #items="{category}">
-        <router-link tag="div" :to="`/articles/${news._id}`" class="py-2 fs-lg d-flex" v-for="(news, i) in category.newsList" :key="i">
+        <router-link
+          tag="div"
+          :to="`/articles/${news._id}`"
+          class="py-2 fs-lg d-flex"
+          v-for="(news, i) in category.newsList"
+          :key="i"
+        >
           <span class="text-info-1">[{{news.CategoryName}}]</span>
-          <span class="px-2">|</span>
+          <span class="px-2">|</span> 
           <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
           <span class="text-grey-1 fs-sm">{{news.createdAt | date}}</span>
         </router-link>
@@ -47,7 +53,12 @@
 
     <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
       <template #items="{category}">
-        <div class="d-flex flex-wrap" style="maargin:0 -0.5rem;">
+        <img
+          src="//ossweb-img.qq.com/upload/webplat/info/yxzj/20190815/9936541435635.jpg"
+          class="w-100"
+        />
+
+        <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
           <router-link
             tag="div"
             :to="`/heroes/${hero._id}`"
@@ -63,10 +74,6 @@
       </template>
     </m-list-card>
     <!-- end hero card -->
-
-    <m-card icon="Menu" title="精彩视频"></m-card>
-
-    <m-card icon="Menu" title="图文攻略"></m-card>
   </div>
 </template>
 <script>
@@ -78,6 +85,7 @@ export default {
       return dayjs(val).format("MM/DD");
     }
   },
+
   data() {
     return {
       swiperOption: {
@@ -98,6 +106,7 @@ export default {
     async fetchNewsCate() {
       const res = await this.$http.get("news/list");
       this.newsCats = res.data;
+      console.log(this.newsCats);
     },
     async fetchHeroCate() {
       const res = await this.$http.get("heroes/list");
