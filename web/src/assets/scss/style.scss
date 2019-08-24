@@ -145,6 +145,7 @@ $type in $spacing-types {
         display: flex;
         justify-content: center;
         align-items: center;
+
         i {
             color: map-get($colors, 'primary');
             font-weight: bold;
@@ -217,8 +218,51 @@ $type in $spacing-types {
         width: 0.7692rem;
         height: 0.7692rem;
         background-position: 38.577% 52.076%;
-
     }
+
+    &.sprite-shop {
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 36.746% 0.924%;
+    }
+
+    &.sprite-serve {
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 10.408% 15.517%;
+    }
+
+    &.sprite-guideSign {
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 89.733% 1.266%;
+    }
+
+    &.sprite-inherited {
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 36.467% 15.287%;
+    }
+
+
+    &.sprite-avatar {
+        width: 2rem;
+        height: 1.5385rem;
+        background-position: 9.728% 1.266%;
+    }
+
+    &.sprite-camp {
+        width: 1.892rem;
+        height: 1.6rem;
+        background-position: 63.3% 0.927%;
+    }
+
+    &.sprite-weixin {
+        width: 1.892rem;
+        height: 1.6rem;
+        background-position: 0 96.207%;
+    }
+
 }
 
 // borders

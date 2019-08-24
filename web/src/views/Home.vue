@@ -1,38 +1,97 @@
 <template>
   <div>
     <swiper :options="swiperOption" v-for="(item, i) in swiper" :key="i" autoplay>
-      <swiper-slide >
-        <img class="w-100" :src="item.items[0].image" />
+      <swiper-slide>
+        <router-link :to="item.items[0].url">
+          <img class="w-100" :src="item.items[0].image" />
+        </router-link>
       </swiper-slide>
       <swiper-slide>
-        <img class="w-100" :src="item.items[1].image" />
+        <router-link :to="item.items[0].url">
+          <img class="w-100" :src="item.items[1].image" />
+        </router-link>
       </swiper-slide>
-      <swiper-slide >
-        <img class="w-100" :src="item.items[2].image" />
+      <swiper-slide>
+        <router-link :to="item.items[0].url">
+          <img class="w-100" :src="item.items[2].image" />
+        </router-link>
       </swiper-slide>
       <!-- <swiper-slide >
         <img class="w-100" :src="item.items[3].image" />
-      </swiper-slide> -->
+      </swiper-slide>-->
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
     </swiper>
     <!-- end of swiper -->
 
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
       <div class="d-flex flex-wrap">
-        <div class="nav-item mb-3" v-for="n in 10" :key="n">
-          <i class="sprite sprite-news"></i>
-          <div class="py-2">爆料站</div>
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-news"></i>
+            <div class="py-2">爆料站</div>
+          </router-link>
         </div>
 
         <div class="nav-item mb-3">
-          <i class="sprite sprite-story"></i>
-          <div class="py-2">故事站</div>
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-story"></i>
+            <div class="py-2">故事站</div>
+          </router-link>
+        </div>
+
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-shop"></i>
+            <div class="py-2">周边商城</div>
+          </router-link>
+        </div>
+
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-serve"></i>
+            <div class="py-2">体验服</div>
+          </router-link>
+        </div>
+
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-guideSign"></i>
+            <div class="py-2">新人专区</div>
+          </router-link>
+        </div>
+
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-inherited"></i>
+            <div class="py-2">荣耀·传承</div>
+          </router-link>
+        </div>
+
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-avatar"></i>
+            <div class="py-2">同人社区</div>
+          </router-link>
+        </div>
+
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-camp"></i>
+            <div class="py-2">王者营地</div>
+          </router-link>
+        </div>
+
+        <div class="nav-item mb-3">
+          <router-link tag="div" to="/">
+            <i class="sprite sprite-weixin"></i>
+            <div class="py-2">公众号</div>
+          </router-link>
         </div>
       </div>
-      <div class="bg-light py-2 fs-sm ai-center">
+      <!-- <div class="bg-light py-2 fs-sm ai-center">
         <i class="sprite sprite-arrow mr-2"></i>
         <span>收起</span>
-      </div>
+      </div>-->
     </div>
     <!-- end nav icons -->
 
@@ -102,7 +161,8 @@ export default {
       },
       newsCats: [],
       heroCats: [],
-      swiper: []
+      swiper: [],
+      flag: true
     };
   },
 
@@ -118,7 +178,6 @@ export default {
     async fetchSwiper() {
       const res = await this.$http.get("swiper/list");
       this.swiper = res.data;
-      console.log(this.swiper);
     }
   },
   created() {

@@ -154,8 +154,13 @@
           <el-row type="flex" style="flex-wrap: wrap">
             <el-col v-for="(item, i) in model.partners" :key="i" :md="12">
               <el-form-item label="英雄">
-                <el-select filterable  v-model="item.hero">
-                  <el-option v-for="hero in heroes" :key="hero._id" :value="hero._id" :label="hero.name"></el-option>
+                <el-select filterable v-model="item.hero">
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :value="hero._id"
+                    :label="hero.name"
+                  ></el-option>
                 </el-select>
               </el-form-item>
 
@@ -169,8 +174,6 @@
             </el-col>
           </el-row>
         </el-tab-pane>
-
-
       </el-tabs>
       <el-form-item style="margin-top:1rem;">
         <el-button type="primary" native-type="submit">保存</el-button>
