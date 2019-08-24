@@ -4,9 +4,15 @@
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
+      <el-table-column label="文章内容">
+        <template slot-scope="scope">
+          <!-- <span>{{scope.row.body}}</span> -->
+          <div class="textDiv" v-html="scope.row.body" style="width:100%;height:61.8px" ></div>
+        </template>
+      </el-table-column>
       <el-table-column label="发布时间">
         <template slot-scope="scope">
-            <span>{{ scope.row.createdAt | date }}</span>
+          <span>{{ scope.row.createdAt | date }}</span>
         </template>
       </el-table-column>
 
@@ -42,7 +48,6 @@ export default {
     async fetch() {
       const res = await this.$http.get("rest/articles");
       this.items = res.data;
-      console.log(this.items)
     },
 
     async remove(row) {
@@ -77,4 +82,14 @@ export default {
   }
 };
 </script>
-<style lang="stylus"></style>
+<style lang="scss">
+.textDiv {
+  p {
+     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 1rem;
+  }
+}
+</style>

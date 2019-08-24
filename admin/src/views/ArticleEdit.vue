@@ -75,6 +75,7 @@ export default {
       const res = await this.$http.get(`rest/articles/${this.id}`);
       // 把数据保存到data中
       this.model = res.data;
+      console.log(this.model)
     },
 
     async fetchCatogories() {
