@@ -4,12 +4,21 @@
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="username" label="用户名"></el-table-column>
+      <el-table-column label="头像">
+        <template slot-scope="scope">
+          <div style="
+    width: 100px;border-radius:50%; ">
+            <img :src="scope.row.avatar" style="width: 100%;border-radius:50%; " />
+          </div>
+        </template>
+      </el-table-column>
+
       <el-table-column label="添加时间">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | date }}</span>
         </template>
       </el-table-column>
-      
+
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
           <el-button
@@ -43,7 +52,7 @@ export default {
       const res = await this.$http.get("rest/admin_users");
       this.items = res.data;
     },
- 
+
     async remove(row) {
       this.$confirm(`确定要删除管理员吗"${row.username}"`, "提示", {
         confirmButtonText: "确定",
@@ -76,4 +85,5 @@ export default {
   }
 };
 </script>
-<style lang="stylus"></style>
+<style >
+</style>

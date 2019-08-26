@@ -40,8 +40,8 @@ module.exports = app => {
     // 更新用户
     app.post('/admin/api/admin_update/:id', async (req, res) => {
         body = req.body
-        let password = { 'password': body.password }
-        AdminUser.findByIdAndUpdate(req.params.id, password, function (err, admin) {
+        let User = { 'password': body.password, 'avatar': body.avatar }
+        AdminUser.findByIdAndUpdate(req.params.id, User, function (err, admin) {
             if (err) {
                 console.log(err)
             }
