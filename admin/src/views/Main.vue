@@ -66,7 +66,7 @@
             <el-dropdown-item @click.native="Adminexit">管理员退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>{{this.username}}</span>
+        <span>欢迎你:{{this.username}}!</span>
       </el-header>
 
       <el-main>

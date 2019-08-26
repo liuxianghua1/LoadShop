@@ -7,6 +7,53 @@ module.exports = app => {
         mergeParams: true
     })
 
+    // 创建用户
+    app.post('/admin/api/admin_add', async (req, res) => {
+        var body = req.body
+        AdminUser.findOne({
+            $or: [{
+                username: body.username
+            }]
+        }, function (err, data) {
+            // 用户名有一相同
+            if (data) {
+                return res.status(200).json({
+                    err_code: 1,
+                    message: 'The account already exists'
+                })
+            }
+            new AdminUser(body).save(function (err, admin) {
+                if (err) {
+                    console.log(err)
+                }
+                res.status(200).json({
+                    err_code: 0,
+                    message: 'ok'
+                })
+            })
+
+        })
+
+    })
+
+
+    // 更新用户
+    app.post('/admin/api/admin_update/:id', async (req, res) => {
+        body = req.body
+        let password = { 'password': body.password }
+        AdminUser.findByIdAndUpdate(req.params.id, password, function (err, admin) {
+            if (err) {
+                console.log(err)
+            }
+            res.status(200).json({
+                err_code: 0,
+                message: 'ok'
+            })
+        })
+
+    })
+
+
     // 创建分类
     router.post('/', async (req, res) => {
         const model = await req.Model.create(req.body)

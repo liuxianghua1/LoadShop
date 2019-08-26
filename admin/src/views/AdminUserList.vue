@@ -43,7 +43,7 @@ export default {
       const res = await this.$http.get("rest/admin_users");
       this.items = res.data;
     },
-
+ 
     async remove(row) {
       this.$confirm(`确定要删除管理员吗"${row.username}"`, "提示", {
         confirmButtonText: "确定",

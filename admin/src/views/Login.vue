@@ -37,12 +37,16 @@ export default {
       // sessionStorage.token = res.data.token
       // 窗口关闭可继续使用
       localStorage.token = res.data.token;
+
       localStorage.setItem("username", this.model.username);
+
       this.$router.push("/");
+
       this.$message({
         type: "success",
         message: "登陆成功"
       });
+      
     }
   }
 };

@@ -69,6 +69,7 @@ const router = new Router({
 // 路由限制 if 判断 不是isPublic：true 也没有token 则跳转
 router.beforeEach((to, from, next) => {
   if (!to.meta.isPublic && !localStorage.token) {
+  // if (!to.meta.isPublic && !sessionStorage.token) {
     return next('/login')
   }
   next()
