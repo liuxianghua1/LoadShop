@@ -62,9 +62,8 @@
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item @click.native="Add">新增管理员</el-dropdown-item>
+            <el-dropdown-item @click.native="Adminexit">管理员退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <span>陈小然</span>
@@ -99,6 +98,16 @@ export default {
     return {
       tableData: Array(20).fill(item)
     };
+  },
+  methods: {
+    Adminexit() {
+      localStorage.clear();
+      this.$message("退出成功");
+      this.$router.push("login");
+    },
+    Add() {
+      this.$router.push({ path: "/admin_users/create" });
+    }
   }
 };
 </script>

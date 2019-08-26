@@ -88,11 +88,14 @@
           </router-link>
         </div>
       </div>
+
       <!-- <div class="bg-light py-2 fs-sm ai-center">
         <i class="sprite sprite-arrow mr-2"></i>
         <span>收起</span>
       </div>-->
+
     </div>
+
     <!-- end nav icons -->
 
     <m-list-card icon="Menu" title="新闻资讯" :categories="newsCats">
@@ -113,14 +116,41 @@
     </m-list-card>
     <!-- end news card -->
 
-    <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
-      <template #items="{category}">
-        <img
+
+<!-- <m-card plain icon="iconfont icon-Menu" title="新闻资讯">
+    
+    <div class="nav jc-between">
+      <div class="nav-item" :class="{ active: active === i }" v-for="(category, i) in newsCats" :key="i" @click="$refs.list.swiper.slideTo(i)">
+        <div class="nav-link" >{{category.name}}</div>
+      </div>
+    </div>
+
+    <div class="pt-3">
+      <swiper :options="{autoHeight: true}" ref="list" @slide-change="() => active = $refs.list.swiper.realIndex">
+        <swiper-slide v-for="(category, i) in newsCats" :key="i">
+          <slot name="items" category="category"></slot>
+        </swiper-slide>
+      </swiper>
+    </div>
+    
+  </m-card> -->
+
+
+
+
+
+
+ <img
           src="//ossweb-img.qq.com/upload/webplat/info/yxzj/20190815/9936541435635.jpg"
-          class="w-100"
+          class="w-100 mb-2 mt-3"
         />
+    <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
+      
+      <template #items="{category}">
+        
 
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
+          
           <router-link
             tag="div"
             :to="`/heroes/${hero._id}`"
@@ -135,6 +165,11 @@
         </div>
       </template>
     </m-list-card>
+
+
+    
+
+   
     <!-- end hero card -->
   </div>
 </template>

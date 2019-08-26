@@ -1,5 +1,6 @@
 <template>
   <m-card plain :icon="icon" :title="title">
+    
     <div class="nav jc-between">
       <div class="nav-item" :class="{ active: active === i }" v-for="(category, i) in categories" :key="i" @click="$refs.list.swiper.slideTo(i)">
         <div class="nav-link" >{{category.name}}</div>
@@ -13,6 +14,7 @@
         </swiper-slide>
       </swiper>
     </div>
+    
   </m-card>
 </template>
 
