@@ -60,13 +60,12 @@
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
         <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
+          <span>{{this.username}}</span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="Add">新增管理员</el-dropdown-item>
             <el-dropdown-item @click.native="Adminexit">管理员退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>欢迎你:{{this.username}}!</span>
       </el-header>
 
       <el-main>
@@ -112,7 +111,8 @@ export default {
     loadComments() {
       var list = localStorage.getItem("username");
       this.username = list;
-    }
+    },
+
   },
   created() {
     this.loadComments()

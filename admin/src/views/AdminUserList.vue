@@ -12,7 +12,7 @@
           </div>
         </template>
       </el-table-column>
-
+      
       <el-table-column label="添加时间">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | date }}</span>

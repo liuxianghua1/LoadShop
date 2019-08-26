@@ -11,6 +11,8 @@ const schema = new mongoose.Schema({
         }
     },
     avatar: { type: String, default:'http://localhost:3000/uploads/timg.jpg' },
+    phone: { type: Number},
+
 
 }, {
         timestamps: true

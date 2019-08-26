@@ -10,9 +10,13 @@ module.exports = app => {
     // 创建用户
     app.post('/admin/api/admin_add', async (req, res) => {
         var body = req.body
+        console.log(body)
         AdminUser.findOne({
             $or: [{
                 username: body.username
+            },
+            {
+                phone: body.phone
             }]
         }, function (err, data) {
             // 用户名有一相同
