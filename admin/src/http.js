@@ -4,6 +4,8 @@ import router from './router';
 const http = axios.create({
     baseURL: 'http://localhost:3000/admin/api'
 })
+
+
 http.interceptors.request.use(function (config) {
     if (localStorage.token) {
         config.headers.Authorization = 'Bearer ' + (localStorage.token || '')

@@ -66,7 +66,7 @@
             <el-dropdown-item @click.native="Adminexit">管理员退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>陈小然</span>
+        <span>{{this.username}}</span>
       </el-header>
 
       <el-main>
@@ -96,7 +96,8 @@ export default {
       address: "上海市普陀区金沙江路 1518 弄"
     };
     return {
-      tableData: Array(20).fill(item)
+      tableData: Array(20).fill(item),
+      username:[]
     };
   },
   methods: {
@@ -107,7 +108,14 @@ export default {
     },
     Add() {
       this.$router.push({ path: "/admin_users/create" });
+    },
+    loadComments() {
+      var list = localStorage.getItem("username");
+      this.username = list;
     }
-  }
+  },
+  created() {
+    this.loadComments()
+  },
 };
 </script>
