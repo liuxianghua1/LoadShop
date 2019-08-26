@@ -22,6 +22,11 @@ import AdminUserList from './views/AdminUserList.vue'
 
 Vue.use(Router)
 
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const router = new Router({
   routes: [
     { path: '/login', name: 'login', component: Login, meta: { isPublic: true } },
@@ -63,7 +68,7 @@ const router = new Router({
 })
 // 路由限制 if 判断 不是isPublic：true 也没有token 则跳转
 router.beforeEach((to, from, next) => {
-  if(!to.meta.isPublic && !localStorage.token) {
+  if (!to.meta.isPublic && !localStorage.token) {
     return next('/login')
   }
   next()
