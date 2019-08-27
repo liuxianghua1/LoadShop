@@ -4,6 +4,7 @@
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="username" label="用户名"></el-table-column>
+      <el-table-column prop="phone" label="手机号"></el-table-column>
       <el-table-column label="头像">
         <template slot-scope="scope">
           <div style="
@@ -24,7 +25,7 @@
           <el-button
             type="primary"
             size="small"
-            @click="$router.push(`/admin_users/edit/${scope.row._id}`)"
+            @click="$router.push(`/admin_users/update/${scope.row._id}`)"
           >编辑</el-button>
 
           <el-button type="danger" size="small" @click="remove(scope.row)">删除</el-button>

@@ -19,6 +19,7 @@ import AdList from './views/AdList.vue'
 
 import AdminUserEdit from './views/AdminUserEdit.vue'
 import AdminUserList from './views/AdminUserList.vue'
+import AdminUserUpdate from './views/AdminUserUpdate.vue'
 
 Vue.use(Router)
 
@@ -58,7 +59,7 @@ const router = new Router({
         { path: '/ads/list', component: AdList },
 
         { path: '/admin_users/create', component: AdminUserEdit },
-        { path: '/admin_users/edit/:id', component: AdminUserEdit, props: true },
+        { path: '/admin_users/update/:id', component: AdminUserUpdate, props: true },
         { path: '/admin_users/list', component: AdminUserList },
 
       ]

@@ -10,7 +10,7 @@ module.exports = app => {
     // 创建用户
     app.post('/admin/api/admin_add', async (req, res) => {
         var body = req.body
-        console.log(body)
+        // 与数据库比对 避免重复
         AdminUser.findOne({
             $or: [{
                 username: body.username
@@ -19,13 +19,14 @@ module.exports = app => {
                 phone: body.phone
             }]
         }, function (err, data) {
-            // 用户名有一相同
+            // 用户名或者手机号有一相同
             if (data) {
                 return res.status(200).json({
                     err_code: 1,
-                    message: 'The account already exists'
+                    message: 'The user name or phone number already exists'
                 })
             }
+            // 执行保存
             new AdminUser(body).save(function (err, admin) {
                 if (err) {
                     console.log(err)
@@ -44,16 +45,32 @@ module.exports = app => {
     // 更新用户
     app.post('/admin/api/admin_update/:id', async (req, res) => {
         body = req.body
-        let User = { 'password': body.password, 'avatar': body.avatar }
-        AdminUser.findByIdAndUpdate(req.params.id, User, function (err, admin) {
-            if (err) {
-                console.log(err)
-            }
+        const { username, password } = req.body
+
+        // select取出明文密码比对
+        const user = await AdminUser.findOne({ username }).select('+password')
+        const isValid = require('bcryptjs').compareSync(password, user.password)
+        assert(isValid, 422, '原密码错误')
+
+        if (body.password === body.checkPass) {
+            // 新密码与原密码重复
             res.status(200).json({
-                err_code: 0,
-                message: 'ok'
+                err_code: 2,
+                message: 'The new password cannot be repeated with the original password'
             })
-        })
+        } else {
+            // 执行更新
+            let User = { 'password': body.checkPass, 'avatar': body.avatar }
+            AdminUser.findByIdAndUpdate(req.params.id, User, function (err, admin) {
+                if (err) {
+                    console.log(err)
+                }
+                res.status(200).json({
+                    err_code: 0,
+                    message: 'ok'
+                })
+            })
+        }
 
     })
 
