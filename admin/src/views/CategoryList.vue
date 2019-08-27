@@ -18,19 +18,63 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-row :span="24">
+      <div class="pagination-list">
+        <el-pagination
+          background
+          @current-change="handleCurrentChange"
+          :current-page.sync="paginations.page_index"
+          :page-size="paginations.page_size"
+          :layout="paginations.layout"
+          :total="paginations.total"
+        ></el-pagination>
+      </div>
+    </el-row>
+
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      items: []
+      items: [],
+      allItems: [],
+      paginations: {
+        page_index: 1,
+        total: 0,
+        page_size: 10, //一页显示几条
+        layout: "prev, pager, next"
+      }
     };
   },
   methods: {
+    setPaginations() {
+      this.paginations.total = this.allItems.length;
+      this.paginations.page_index = 1;
+      this.paginations.page_size = 10;
+      this.items = this.allItems.filter((tableitems, index) => {
+        return index < this.paginations.page_size;
+      });
+    },
+    /**
+     * 点击页码跳转
+     */
+    handleCurrentChange(page) {
+      let index = this.paginations.page_size * (page - 1);
+      let items_num = this.paginations.page_size * page;
+      let tables = [];
+      for (let i = index; i < items_num; i++) {
+        if (this.allItems[i]) {
+          tables.push(this.allItems[i]);
+        }
+        this.items = tables;
+      }
+    },
     async fetch() {
       const res = await this.$http.get("rest/categories");
-      this.items = res.data;
+      this.allItems = res.data;
+      this.setPaginations()
     },
 
     async remove(row) {
@@ -42,7 +86,7 @@ export default {
       // 点击确定的事件
         .then(async () => {
           // 调用接口根据id删除一条数据
-          const res = await this.$http.delete(`rest/categories/${row._id}`)
+           await this.$http.delete(`rest/categories/${row._id}`)
           // 返回一条信息
           this.$message({
             type: "success",
