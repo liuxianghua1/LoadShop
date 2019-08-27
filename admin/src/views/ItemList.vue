@@ -1,7 +1,13 @@
 <template>
   <div class="about">
     <h1>物品列表</h1>
-    <el-table :data="items">
+    <el-col :span="24">
+      <el-button type="primary" :disabled="this.tableChecked.length === 0"  @click="batchDelete(tableChecked)">批量删除</el-button>
+    </el-col>
+    <el-table :data="items" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column label="序号" type="index" show-overflow-tooltip width="50">
+      </el-table-column>
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="name" label="物品名称"></el-table-column>
       <el-table-column prop="icon" label="图片">
@@ -28,10 +34,39 @@
 export default {
   data() {
     return {
-      items: []
+      items: [],
+      tableChecked: [],
+      ids: [],
     };
   },
   methods: {
+    handleSelectionChange(val) {
+      this.tableChecked = val
+    },
+    async batchDelete() {
+      var ids = this.tableChecked.map(item => item._id).join()
+      this.$confirm('确定要批量删除这些物品吗', "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(async () => {
+          // const res = await this.$http.delete('del/'+ids);
+          await this.$http.delete('rest/items/del/'+ids);
+          this.$message({ 
+            type: "success",
+            message: "删除成功!"
+          });
+          this.fetch();
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+      
+    },
     async fetch() {
       const res = await this.$http.get("rest/items");
       this.items = res.data;
@@ -46,7 +81,7 @@ export default {
       // 点击确定的事件
         .then(async () => {
           // 调用接口根据id删除一条数据
-          const res = await this.$http.delete(`rest/items/${row._id}`)
+         await this.$http.delete(`rest/items/${row._id}`)
           // 返回一条信息
           this.$message({
             type: "success",

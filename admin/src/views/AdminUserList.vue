@@ -2,6 +2,7 @@
   <div class="about">
     <h1>管理员列表</h1>
     <el-table :data="items">
+      <el-table-column label="序号" type="index" show-overflow-tooltip width="50"></el-table-column>
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="phone" label="手机号"></el-table-column>
@@ -63,7 +64,7 @@ export default {
         // 点击确定的事件
         .then(async () => {
           // 调用接口根据id删除一条数据
-          const res = await this.$http.delete(`rest/admin_users/${row._id}`);
+         await this.$http.delete(`rest/admin_users/${row._id}`);
           // 返回一条信息
           this.$message({
             type: "success",

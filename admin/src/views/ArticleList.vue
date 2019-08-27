@@ -56,7 +56,7 @@ export default {
     // tableChecked
     async batchDelete() {
       var ids = this.tableChecked.map(item => item._id).join()
-      this.$confirm('确定要批量删除这些文章吗', "提示", {
+      this.$confirm('确定要批量删除这些英雄吗', "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
