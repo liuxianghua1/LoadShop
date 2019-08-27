@@ -3,19 +3,20 @@ module.exports = app => {
     const jwt = require('jsonwebtoken')
     const assert = require('http-assert')
     const AdminUser = require('../../models/AdminUser')
-    const Article = require('../../models/Article')
+    // const Article = require('../../models/Article')
     const router = express.Router({
         mergeParams: true
     })
 
-    app.delete('/admin/api/del/:id', async (req, res) => {
-        const delId = req.params.id.split(',')
-        await Article.remove({ _id: { $in: delId } });
-        res.send({
-            success: true
-        })
-    })
+    // app.delete('/admin/api/del/:id', async (req, res) => {
+    //     const delId = req.params.id.split(',')
+    //     await Article.remove({ _id: { $in: delId } });
+    //     res.send({
+    //         success: true
+    //     })
+    // })
 
+   
 
     // 创建用户
     app.post('/admin/api/admin_add', async (req, res) => {
@@ -107,6 +108,16 @@ module.exports = app => {
         })
     })
 
+    router.delete('/del/:id', async (req, res) => {
+        console.log('进来了')
+        const delId = req.params.id.split(',')
+        await req.Model.remove({ _id: { $in: delId } });
+        res.send({
+            success: true
+        })
+    })
+
+
     // 查询分类数据 并且限制10条
     router.get('/', async (req, res) => {
         const queryOptions = {}
@@ -130,7 +141,6 @@ module.exports = app => {
     const resourceMiddleware = require('../../middleware/resource')
 
     app.use('/admin/api/rest/:resource', resourceMiddleware(), authMiddleware(), router)
-
     const multer = require('multer')
     // 静态托管
     const upload = multer({ dest: __dirname + '/../../uploads' })

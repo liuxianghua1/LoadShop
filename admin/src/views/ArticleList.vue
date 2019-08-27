@@ -6,15 +6,10 @@
     </el-col>
     <el-table :data="items" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column label="序号" type="index" show-overflow-tooltip width="50">
+      </el-table-column>
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
-      <el-table-column label="文章内容">
-        <template slot-scope="scope">
-          <div class="textDiv" style="width:100%;height:61.8px">
-            <span v-html="scope.row.body"></span>
-          </div>
-        </template>
-      </el-table-column>
       <el-table-column label="发布时间">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | date }}</span>
@@ -53,13 +48,13 @@ export default {
   methods: {
     handleSelectionChange(val) {
       this.tableChecked = val
-
     },
     async fetch() {
       const res = await this.$http.get("rest/articles");
       this.items = res.data;
     },
-    async batchDelete(tableChecked) {
+    // tableChecked
+    async batchDelete() {
       var ids = this.tableChecked.map(item => item._id).join()
       this.$confirm('确定要批量删除这些文章吗', "提示", {
         confirmButtonText: "确定",
@@ -67,8 +62,9 @@ export default {
         type: "warning"
       })
         .then(async () => {
-          const res = await this.$http.delete('del/'+ids);
-          this.$message({
+          // const res = await this.$http.delete('del/'+ids);
+          await this.$http.delete('rest/articles/del/'+ids);
+          this.$message({ 
             type: "success",
             message: "删除成功!"
           });
@@ -91,7 +87,9 @@ export default {
         // 点击确定的事件
         .then(async () => {
           // 调用接口根据id删除一条数据
-          const res = await this.$http.delete(`rest/articles/${row._id}`);
+
+          // const res = await this.$http.delete(`rest/articles/${row._id}`);
+        await this.$http.delete(`rest/articles/${row._id}`);
           // 返回一条信息
           this.$message({
             type: "success",
@@ -114,13 +112,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.textDiv {
-  p {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-}
-</style>
