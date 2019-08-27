@@ -9,8 +9,12 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item label="用户名"  prop="username">
-        <el-input v-model="model.username" :disabled="id ? true : false" placeholder="保存后无法修改,请谨慎填写。"></el-input>
+      <el-form-item label="用户名" prop="username">
+        <el-input
+          v-model="model.username"
+          :disabled="id ? true : false"
+          placeholder="保存后无法修改,请谨慎填写。"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="密码" prop="password">
@@ -22,7 +26,11 @@
       </el-form-item>
 
       <el-form-item label="手机号" prop="phone">
-        <el-input v-model.number="model.phone" :disabled="id ? true : false" placeholder="保存后无法修改,请谨慎填写。"  />
+        <el-input
+          v-model.number="model.phone"
+          :disabled="id ? true : false"
+          placeholder="保存后无法修改,请谨慎填写。"
+        />
       </el-form-item>
 
       <el-form-item label="头像">
@@ -53,13 +61,11 @@ export default {
     id: {}
   },
   data() {
-    
     var checkPhone = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("手机号不能为空"));
       } else {
         const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
-        console.log(reg.test(value));
         if (reg.test(value)) {
           callback();
         } else {
@@ -67,6 +73,7 @@ export default {
         }
       }
     };
+
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
@@ -77,6 +84,7 @@ export default {
         callback();
       }
     };
+
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
@@ -127,35 +135,20 @@ export default {
     },
     async save() {
       let res;
-
-      if (this.id) {
-        // 如果有id 那就是更新
-        res = await this.$http.post(`admin_update/${this.id}`, this.model);
-        var err_code = res.data.err_code;
-        if (err_code === 0) {
-          this.$message({
-            type: "success",
-            message: "保存成功"
-          });
-          this.$router.push("/admin_users/list");
-        }
-      } else {
-        // 否则就是直接添加
-        res = await this.$http.post("admin_add", this.model);
-        var err_code = res.data.err_code;
-        if (err_code === 1) {
-          this.$message({
-            type: "error",
-            message: "用户名或手机号已存在"
-          });
-        }
-        if (err_code === 0) {
-          this.$message({
-            type: "success",
-            message: "保存成功"
-          });
-          this.$router.push("/admin_users/list");
-        }
+      res = await this.$http.post("admin_add", this.model);
+      var err_code = res.data.err_code;
+      if (err_code === 1) {
+        this.$message({
+          type: "error",
+          message: "用户名或手机号已存在"
+        });
+      }
+      if (err_code === 0) {
+        this.$message({
+          type: "success",
+          message: "保存成功"
+        });
+        this.$router.push("/admin_users/list");
       }
       // 跳转页面
     },

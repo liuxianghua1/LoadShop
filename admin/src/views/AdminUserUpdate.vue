@@ -94,9 +94,12 @@ export default {
         }
       });
     },
+    
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+
+    // 头像上传
     afterUpload(res) {
       this.$set(this.model, "avatar", res.url);
     },
