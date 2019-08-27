@@ -3,9 +3,19 @@ module.exports = app => {
     const jwt = require('jsonwebtoken')
     const assert = require('http-assert')
     const AdminUser = require('../../models/AdminUser')
+    const Article = require('../../models/Article')
     const router = express.Router({
         mergeParams: true
     })
+
+    app.delete('/admin/api/del/:id', async (req, res) => {
+        const delId = req.params.id.split(',')
+        await Article.remove({ _id: { $in: delId } });
+        res.send({
+            success: true
+        })
+    })
+
 
     // 创建用户
     app.post('/admin/api/admin_add', async (req, res) => {
@@ -90,6 +100,7 @@ module.exports = app => {
 
     // 根据id来删除一条数据
     router.delete('/:id', async (req, res) => {
+
         await req.Model.findByIdAndDelete(req.params.id, req.body)
         res.send({
             success: true
