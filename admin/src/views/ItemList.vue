@@ -28,6 +28,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-row :span="24">
+          <div class="pagination-list">
+            <el-pagination background @current-change="handleCurrentChange" :current-page.sync="paginations.page_index"
+              :page-size="paginations.page_size" :layout="paginations.layout" :total="paginations.total">
+            </el-pagination>
+          </div>
+        </el-row>
   </div>
 </template>
 <script>
@@ -35,11 +42,40 @@ export default {
   data() {
     return {
       items: [],
+      allItems: [],
       tableChecked: [],
       ids: [],
+      paginations: {
+          page_index: 1,
+          total: 0,
+          page_size: 5, //一页显示几条
+          layout: "prev, pager, next"
+        }
     };
   },
   methods: {
+    setPaginations() {
+        this.paginations.total = this.allItems.length;
+        this.paginations.page_index = 1;
+        this.paginations.page_size = 5;
+        this.items = this.allItems.filter((tableitems, index) => {
+          return index < this.paginations.page_size
+        });
+      },
+      /**
+       * 点击页码跳转
+       */
+      handleCurrentChange(page) {
+        let index = this.paginations.page_size * (page - 1);
+        let items_num = this.paginations.page_size * page;
+        let tables = []
+        for (let i = index; i < items_num; i++) {
+          if (this.allItems[i]) {
+            tables.push(this.allItems[i]);
+          }
+          this.items = tables;
+        }
+      },
     handleSelectionChange(val) {
       this.tableChecked = val
     },
@@ -69,7 +105,8 @@ export default {
     },
     async fetch() {
       const res = await this.$http.get("rest/items");
-      this.items = res.data;
+      this.allItems = res.data;
+      this.setPaginations()
     },
 
     async remove(row) {
