@@ -21,7 +21,10 @@
         </template>
       </el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="180">
+      <el-table-column fixed="right" label="操作" width="300">
+        <template slot="header">
+          <el-input class="search" v-model="search" prefix-icon="el-icon-search" clearable placeholder="输入英雄名称搜索" />
+        </template>
         <template slot-scope="scope">
           <el-button
             type="primary"
@@ -63,10 +66,20 @@ export default {
         total: 0,
         page_size: 10, //一页显示几条
         layout: "prev, pager, next"
-      }
+      },
+      search: '',
+
     };
   },
   methods: {
+    // 搜索功能
+    searchItem() {
+        const searchItemdata = this.allItems.filter(data => !this.search || data.name.toLowerCase().includes(this
+          .search
+          .toLowerCase()))
+        this.allItems = searchItemdata
+        this.setPaginations()
+      },
     setPaginations() {
       this.paginations.total = this.allItems.length;
       this.paginations.page_index = 1;
@@ -151,7 +164,24 @@ export default {
   created() {
     // 在页面加载的时候执行
     this.fetch();
-  }
+  },
+
+  watch: {
+      search: function (new_v) {
+        if (new_v != '') {
+          this.searchItem()
+        } else {
+          this.fetch()
+        }
+      }
+    }
 };
 </script>
-<style lang="stylus"></style>
+<style lang="scss">
+.el-icon-search {
+    margin-left: 6px;
+}
+.el-icon-circle-close:before {
+  margin-right: 20px;
+}
+</style>
