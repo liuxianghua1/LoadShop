@@ -1,24 +1,12 @@
 <template>
   <div>
-    <swiper :options="swiperOption" v-for="(item, i) in swiper" :key="i" autoplay>
-      <swiper-slide>
-        <router-link :to="item.items[0].url">
-          <img class="w-100" :src="item.items[0].image" />
-        </router-link>
+    
+    <swiper :options="swiperOption"  autoplay>
+      <swiper-slide v-for="(item, i) in swiper" :key="i">
+        <router-link :to="item.url">
+            <img class="w-100" :src="item.image">
+          </router-link>
       </swiper-slide>
-      <swiper-slide>
-        <router-link :to="item.items[0].url">
-          <img class="w-100" :src="item.items[1].image" />
-        </router-link>
-      </swiper-slide>
-      <swiper-slide>
-        <router-link :to="item.items[0].url">
-          <img class="w-100" :src="item.items[2].image" />
-        </router-link>
-      </swiper-slide>
-      <!-- <swiper-slide >
-        <img class="w-100" :src="item.items[3].image" />
-      </swiper-slide>-->
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
     </swiper>
     <!-- end of swiper -->
@@ -212,7 +200,7 @@ export default {
     },
     async fetchSwiper() {
       const res = await this.$http.get("swiper/list");
-      this.swiper = res.data;
+      this.swiper = res.data[0].items;
     }
   },
   created() {
