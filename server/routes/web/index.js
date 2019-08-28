@@ -2,6 +2,7 @@ module.exports = app => {
     const router = require('express').Router()
     const mongoose = require('mongoose')
     const Category = mongoose.model('Category')
+    const ArticleCategory = mongoose.model('ArticleCategory')
     const Article = mongoose.model('Article')
     const Hero = mongoose.model('Hero')
     const Ad = mongoose.model('Ad')
@@ -30,13 +31,15 @@ module.exports = app => {
     })
     // 新闻列表接口
     router.get('/news/list', async (req, res) => {
-        const parent = await Category.findOne({
-            name: '新闻分类'
-        })
-        const cats = await Category.aggregate([
+        const demo = await ArticleCategory.find()
+        const cats = await ArticleCategory.aggregate([
             {
-                $match: { parent: '' }
+            $match: {
+                // cat: demo._id
+                cat: ''
+              }
             },
+            
             {
                 $lookup: {
                     from: 'articles',
@@ -45,14 +48,22 @@ module.exports = app => {
                     as: 'newsList'
                 }
             },
+            // {
+            //     $project: {
+            //       newsList: {
+            //         _id: ,
+            //         body: 0
+            //       }
+            //     }
+            //   },
             {
                 $addFields: {
                     newsList: { $slice: ['$newsList', 5] },
                 },
             },
         ])
-        const hotNews = ['5d58c48135942c2abc9d0525', '5d58c5ba21ce7847a4252be3', '5d5d44b46395133f38a61fa9', '5d5d44b96395133f38a61faa']
-        const subCats = hotNews.map(v => v) //新闻 公告 活动 赛事
+        const hotNews = ['5d6650c71eb74c4224d1c7bb', '5d665d419cefd11b24f48858', '5d665d909cefd11b24f4885d', '5d66657be7ac8e46f8966fbd']
+        const subCats = demo.map(v => v) //新闻 公告 活动 赛事
         cats.unshift({
             name: '热门',
             newsList: await Article.find().where({

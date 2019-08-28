@@ -5,7 +5,7 @@
       <el-form-item label="所属分类">
         <el-select v-model="model.categories" multiple>
           <el-option
-            v-for="item in categories"
+            v-for="item in article_categories"
             :key="item._id"
             :label="item.name"
             :value="item._id"
@@ -42,7 +42,7 @@ export default {
     return {
       model: {},
       // 父级选项
-      categories: []
+      article_categories: []
     };
   },
   methods: {
@@ -75,13 +75,12 @@ export default {
       const res = await this.$http.get(`rest/articles/${this.id}`);
       // 把数据保存到data中
       this.model = res.data;
-      console.log(this.model)
     },
 
     async fetchCatogories() {
-      const res = await this.$http.get(`rest/categories`);
+      const res = await this.$http.get(`rest/article_categories`);
       // 把数据保存到data中
-      this.categories = res.data;
+      this.article_categories = res.data;
     }
   },
 

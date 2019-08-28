@@ -16,6 +16,8 @@
 
       <el-table-column prop="title" label="标题"></el-table-column>
 
+      <!-- <el-table-column prop="categories[0].name" label="文章分类"></el-table-column> -->
+
       <el-table-column label="发布时间">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | date }}</span>
@@ -135,6 +137,7 @@ export default {
       const res = await this.$http.get("rest/articles");
       this.allItems = res.data;
       this.setPaginations();
+      // console.log(this.items)
     },
 
     /**
@@ -190,7 +193,8 @@ export default {
             message: "已取消删除"
           });
         });
-    }
+    },
+
   },
   created() {
     this.fetch();// 在页面加载的时候执行
