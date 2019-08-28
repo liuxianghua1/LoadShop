@@ -65,6 +65,10 @@ export default {
   },
 
   methods: {
+
+    /**
+     * 分页序号自增
+     */
    table_index(index){
         return (this.paginations.page_index-1) * this.paginations.page_size + index + 1
     },
@@ -167,7 +171,6 @@ export default {
 
   created() {
     this.fetch();// 在页面加载的时候执行
-    this.xuhao()
   },
 
   watch: {

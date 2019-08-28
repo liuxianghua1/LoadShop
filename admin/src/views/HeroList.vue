@@ -10,7 +10,7 @@
     </el-col>
     <el-table :data="items" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column label="序号" type="index" show-overflow-tooltip width="50"></el-table-column>
+      <el-table-column label="序号" type="index" :index="table_index" show-overflow-tooltip width="50"></el-table-column>
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="name" label="英雄名称"></el-table-column>
       <el-table-column prop="title" label="英雄称号"></el-table-column>
@@ -72,6 +72,14 @@ export default {
     };
   },
   methods: {
+
+    /**
+     * 分页序号自增
+     */
+   table_index(index){
+        return (this.paginations.page_index-1) * this.paginations.page_size + index + 1
+    },
+    
     // 搜索功能
     searchItem() {
         const searchItemdata = this.allItems.filter(data => !this.search || data.name.toLowerCase().includes(this

@@ -10,7 +10,7 @@
 
       <el-table-column type="selection" width="55"></el-table-column>
 
-      <el-table-column label="序号" type="index" show-overflow-tooltip width="50"></el-table-column>
+      <el-table-column label="序号" type="index" :index="table_index" show-ov erflow-tooltip width="50"></el-table-column>
 
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
 
@@ -68,8 +68,8 @@ export default {
       ids: [],
       allItems: [],
       paginations: {
-        page_index: 1,
-        total: 0,
+        page_index: 1, //当前页数
+        total: 0, //数据总数
         page_size: 10, //一页显示几条
         layout: "prev, pager, next"
       },
@@ -78,6 +78,14 @@ export default {
   },
 
   methods: {
+
+    /**
+     * 分页序号自增
+     */
+   table_index(index){
+        return (this.paginations.page_index-1) * this.paginations.page_size + index + 1
+    },
+
      /**
      * 搜索功能
      */
