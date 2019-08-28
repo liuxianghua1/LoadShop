@@ -5,6 +5,9 @@ import Main from './views/Main.vue'
 import CategoryEdit from './views/CategoryEdit.vue'
 import CategoryList from './views/CategoryList.vue'
 
+import ArticleCategoryEdit from './views/ArticleCategoryEdit.vue'
+import ArticleCategoryList from './views/ArticleCategoryList.vue'
+
 import ItemEdit from './views/ItemEdit.vue'
 import ItemList from './views/ItemList.vue'
 
@@ -20,6 +23,8 @@ import AdList from './views/AdList.vue'
 import AdminUserEdit from './views/AdminUserEdit.vue'
 import AdminUserList from './views/AdminUserList.vue'
 import AdminUserUpdate from './views/AdminUserUpdate.vue'
+
+
 
 Vue.use(Router)
 
@@ -40,6 +45,10 @@ const router = new Router({
         { path: '/categories/create', component: CategoryEdit },
         { path: '/categories/edit/:id', component: CategoryEdit, props: true },
         { path: '/categories/list', component: CategoryList },
+
+        { path: '/article_categories/create', component: ArticleCategoryEdit },
+        { path: '/article_categories/edit/:id', component: ArticleCategoryEdit, props: true },
+        { path: '/article_categories/list', component: ArticleCategoryList },
 
 
         { path: '/items/create', component: ItemEdit },

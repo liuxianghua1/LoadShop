@@ -42,10 +42,17 @@
           <template slot="title">
             <i class="el-icon-setting"></i>系统设置
           </template>
+
           <el-menu-item-group>
             <template slot="title">分类</template>
             <el-menu-item index="/categories/create">新建分类</el-menu-item>
             <el-menu-item index="/categories/list">分类列表</el-menu-item>
+          </el-menu-item-group>
+
+          <el-menu-item-group>
+            <template slot="title">文章分类</template>
+            <el-menu-item index="/article_categories/create">新建分类</el-menu-item>
+            <el-menu-item index="/article_categories/list">分类列表</el-menu-item>
           </el-menu-item-group>
 
           <el-menu-item-group>
