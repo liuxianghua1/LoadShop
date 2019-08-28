@@ -1,53 +1,54 @@
 <template>
   <div class="about">
     <h1>物品列表</h1>
+
     <el-col :span="24">
-      <el-button
-        type="primary"
-        :disabled="this.tableChecked.length === 0"
-        @click="batchDelete(tableChecked)"
-      >批量删除</el-button>
+      <el-button type="primary" :disabled="this.tableChecked.length === 0" @click="batchDelete(tableChecked)" >批量删除</el-button>
     </el-col>
+
     <el-table :data="items" @selection-change="handleSelectionChange">
+
       <el-table-column type="selection" width="55"></el-table-column>
+
       <el-table-column label="序号" type="index" show-overflow-tooltip width="50"></el-table-column>
+
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
+
       <el-table-column prop="name" label="物品名称"></el-table-column>
+
       <el-table-column prop="icon" label="图片">
         <template slot-scope="scope">
           <img :src="scope.row.icon" :alt="scope.row.name" style="height:3rem;" />
         </template>
       </el-table-column>
+ 
+      <el-table-column fixed="right" label="操作" width="380">
+        
+        <template slot="header">
+          <el-input class="search" v-model="search" prefix-icon="el-icon-search" clearable placeholder="输入文章标题搜索" />
+        </template>
 
-      <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
-          <el-button
-            type="primary"
-            size="small"
-            @click="$router.push(`/items/edit/${scope.row._id}`)"
-          >编辑</el-button>
-
+          <el-button type="primary" size="small" @click="$router.push(`/items/edit/${scope.row._id}`)" >编辑</el-button>
           <el-button type="danger" size="small" @click="remove(scope.row)">删除</el-button>
         </template>
+
       </el-table-column>
+
     </el-table>
+
     <el-row :span="24">
       <div class="pagination-list">
-        <el-pagination
-          background
-          @current-change="handleCurrentChange"
-          :current-page.sync="paginations.page_index"
-          :page-size="paginations.page_size"
-          :layout="paginations.layout"
-          :total="paginations.total"
-        ></el-pagination>
+        <el-pagination background @current-change="handleCurrentChange" :current-page.sync="paginations.page_index" :page-size="paginations.page_size" :layout="paginations.layout" :total="paginations.total" ></el-pagination>
       </div>
     </el-row>
+
   </div>
 </template>
 <script>
 export default {
   data() {
+
     return {
       items: [],
       allItems: [],
@@ -58,10 +59,24 @@ export default {
         total: 0,
         page_size: 5, //一页显示几条
         layout: "prev, pager, next"
-      }
+      },
+      search: '',
     };
   },
+
   methods: {
+
+    /**
+     * 搜索功能
+     */
+    searchItem() {
+        const searchItemdata = this.allItems.filter(data => !this.search || data.name.toLowerCase().includes(this
+          .search
+          .toLowerCase()))
+        this.allItems = searchItemdata
+        this.setPaginations()
+      },
+    
     setPaginations() {
       this.paginations.total = this.allItems.length;
       this.paginations.page_index = 1;
@@ -89,6 +104,7 @@ export default {
     handleSelectionChange(val) {
       this.tableChecked = val;
     },
+
     async batchDelete() {
       var ids = this.tableChecked.map(item => item._id).join();
       this.$confirm("确定要批量删除这些物品吗", "提示", {
@@ -97,7 +113,6 @@ export default {
         type: "warning"
       })
         .then(async () => {
-          // const res = await this.$http.delete('del/'+ids);
           await this.$http.delete("rest/items/del/" + ids);
           this.$message({
             type: "success",
@@ -112,6 +127,7 @@ export default {
           });
         });
     },
+
     async fetch() {
       const res = await this.$http.get("rest/items");
       this.allItems = res.data;
@@ -143,11 +159,22 @@ export default {
           });
         });
     }
+
   },
+
   created() {
-    // 在页面加载的时候执行
-    this.fetch();
-  }
+    this.fetch();// 在页面加载的时候执行
+  },
+
+  watch: {
+      search: function (new_v) {
+        if (new_v != '') {
+          this.searchItem()
+        } else {
+          this.fetch()
+        }
+      }
+    },
 };
 </script>
 <style lang="scss">
