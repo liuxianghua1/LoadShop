@@ -10,7 +10,7 @@
 
       <el-table-column type="selection" width="55"></el-table-column>
 
-      <el-table-column label="序号" type="index" show-overflow-tooltip width="50"></el-table-column>
+      <el-table-column label="序号" type="index" :index="table_index" show-overflow-tooltip width="50"> </el-table-column>
 
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
 
@@ -65,6 +65,9 @@ export default {
   },
 
   methods: {
+   table_index(index){
+        return (this.paginations.page_index-1) * this.paginations.page_size + index + 1
+    },
 
     /**
      * 搜索功能
@@ -164,6 +167,7 @@ export default {
 
   created() {
     this.fetch();// 在页面加载的时候执行
+    this.xuhao()
   },
 
   watch: {
