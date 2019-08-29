@@ -86,7 +86,7 @@
 
     <!-- end nav icons -->
 
-    <m-list-card icon="Menu" title="新闻资讯" :categories="newsCats">
+    <m-list-card icon="Menu" title="新闻资讯" menu go="baidu.com" :categories="newsCats">
       <template #items="{category}">
         <router-link
           tag="div"
@@ -125,14 +125,7 @@
 
 
 
-
-
-
-        <img
-          src="//ossweb-img.qq.com/upload/webplat/info/yxzj/20190815/9936541435635.jpg"
-          class="w-100 mb-2 mt-3"
-        />
-    <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
+    <m-list-card icon="card-hero" title="英雄列表" menu :categories="heroCats">
       
       <template #items="{category}">
         
@@ -155,7 +148,7 @@
     </m-list-card>
 
 
-    <m-list-card icon="card-hero" title="产品列表" :categories="goodsCats">
+    <m-list-card icon="card-hero" title="产品列表" menu :categories="goodsCats">
       
       <template #items="{category}">
         

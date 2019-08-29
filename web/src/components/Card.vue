@@ -7,7 +7,9 @@
       <div class="fs-xl flex-1 px-2">
         <strong>{{ title }}</strong>
       </div>
+      <router-link tag="div" :to="`${go}`">
       <i class="iconfont icon-menu" v-if="!plain"></i>
+      </router-link>
     </div>
    
     <div class="card-body pt-3">
@@ -22,6 +24,7 @@ export default {
     return {};
   },
   props: {
+    go: { type: String},
     title: { type: String, required: true },
     icon: { type: String, required: true },
     plain: { type: Boolean },
