@@ -1,11 +1,11 @@
 <template>
   <div>
-    
-    <swiper :options="swiperOption"  autoplay>
+
+    <swiper :options="swiperOption" autoplay>
       <swiper-slide v-for="(item, i) in swiper" :key="i">
         <router-link :to="item.url">
-            <img class="w-100" :src="item.image">
-          </router-link>
+          <img class="w-100" :src="item.image">
+        </router-link>
       </swiper-slide>
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
     </swiper>
@@ -88,13 +88,8 @@
 
     <m-list-card icon="Menu" title="新闻资讯" menu go="baidu.com" :categories="newsCats">
       <template #items="{category}">
-        <router-link
-          tag="div"
-          :to="`/articles/${news._id}`"
-          class="py-2 fs-lg d-flex"
-          v-for="(news, i) in category.newsList"
-          :key="i"
-        >
+        <router-link tag="div" :to="`/articles/${news._id}`" class="py-2 fs-lg d-flex"
+          v-for="(news, i) in category.newsList" :key="i">
           <span class="text-info-1">[{{news.CategoryName}}]</span>
           <span class="px-2">|</span>
           <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
@@ -105,64 +100,33 @@
     <!-- end news card -->
 
 
-<!-- <m-card plain icon="iconfont icon-Menu" title="新闻资讯">
-    
-    <div class="nav jc-between">
-      <div class="nav-item" :class="{ active: active === i }" v-for="(category, i) in newsCats" :key="i" @click="$refs.list.swiper.slideTo(i)">
-        <div class="nav-link" >{{category.name}}</div>
-      </div>
-    </div>
-
-    <div class="pt-3">
-      <swiper :options="{autoHeight: true}" ref="list" @slide-change="() => active = $refs.list.swiper.realIndex">
-        <swiper-slide v-for="(category, i) in newsCats" :key="i">
-          <slot name="items" category="category"></slot>
-        </swiper-slide>
-      </swiper>
-    </div>
-    
-  </m-card> -->
-
-
-
     <m-list-card icon="card-hero" title="英雄列表" menu :categories="heroCats">
-      
+
       <template #items="{category}">
-        
 
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
-          
-          <router-link
-            tag="div"
-            :to="`/heroes/${hero._id}`"
-            class="p-2 text-center"
-            style="width:20%"
-            v-for="(hero, i) in category.heroList"
-            :key="i"
-          >
+
+          <router-link tag="div" :to="`/heroes/${hero._id}`" class="p-2 text-center" style="width:20%"
+            v-for="(hero, i) in category.heroList" :key="i">
             <img :src="hero.avatar" class="w-100" />
             <div>{{hero.name}}</div>
           </router-link>
+
         </div>
+
       </template>
     </m-list-card>
 
 
     <m-list-card icon="card-hero" title="产品列表" menu :categories="goodsCats">
-      
+
       <template #items="{category}">
-        
+
 
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
-          
-          <router-link
-            tag="div"
-            :to="`/goodses/${item._id}`"
-            class="p-2 text-center"
-            style="width:20%"
-            v-for="(item, i) in category.goodsList"
-            :key="i"
-          >
+
+          <router-link tag="div" :to="`/goodses/${item._id}`" class="p-2 text-center" style="width:20%"
+            v-for="(item, i) in category.goodsList" :key="i">
             <img :src="item.avatar" class="w-100" />
             <div>{{item.name}}</div>
           </router-link>
@@ -170,92 +134,95 @@
       </template>
     </m-list-card>
 
-   
+
     <!-- end hero card -->
   </div>
 </template>
 <script>
-import dayjs from "dayjs";
-export default {
-  filters: {
-    date(val) {
-      // 过滤器过滤时间格式
-      return dayjs(val).format("MM/DD");
-    }
-  },
+  import dayjs from "dayjs";
+  export default {
+    filters: {
+      date(val) {
+        // 过滤器过滤时间格式
+        return dayjs(val).format("MM/DD");
+      }
+    },
 
-  data() {
-    return {
-      swiperOption: {
-        autoplay: {
-          delay: 2000,
-          disableOnInteraction: false
+    data() {
+      return {
+        swiperOption: {
+          autoplay: {
+            delay: 2000,
+            disableOnInteraction: false
+          },
+          pagination: {
+            el: ".pagination-home"
+          }
         },
-        pagination: {
-          el: ".pagination-home"
-        }
+        newsCats: [],
+        heroCats: [],
+        goodsCats: [],
+        swiper: [],
+        flag: true
+      };
+    },
+
+    methods: {
+      async fetchNewsCate() {
+        const res = await this.$http.get("news/list");
+        this.newsCats = res.data;
       },
-      newsCats: [],
-      heroCats: [],
-      goodsCats:[],
-      swiper: [],
-      flag: true
-    };
-  },
 
-  methods: {
-    async fetchNewsCate() {
-      const res = await this.$http.get("news/list");
-      this.newsCats = res.data;
+      async fetchHeroCate() {
+        const res = await this.$http.get("heroes/list");
+        this.heroCats = res.data;
+      },
+
+      async fetchGoodsCate() {
+        const res = await this.$http.get("goodses/list");
+        this.goodsCats = res.data;
+
+      },
+
+      async fetchSwiper() {
+        const res = await this.$http.get("swiper/list");
+        this.swiper = res.data[0].items;
+      }
     },
-
-    async fetchHeroCate() {
-      const res = await this.$http.get("heroes/list");
-      this.heroCats = res.data;
-    },
-
-    async fetchGoodsCate() {
-      const res = await this.$http.get("goodses/list");
-      this.goodsCats = res.data;
-
-    },
-
-    async fetchSwiper() {
-      const res = await this.$http.get("swiper/list");
-      this.swiper = res.data[0].items;
+    created() {
+      this.fetchGoodsCate()
+      this.fetchSwiper();
+      this.fetchNewsCate();
+      this.fetchHeroCate();
     }
-  },
-  created() {
-    this.fetchGoodsCate()
-    this.fetchSwiper();
-    this.fetchNewsCate();
-    this.fetchHeroCate();
-  }
-};
+  };
 </script>
 <style lang="scss">
-@import "../assets/scss/variables";
+  @import "../assets/scss/variables";
 
-.pagination-home {
-  .swiper-pagination-bullet {
-    opacity: 1;
-    border-radius: 0.1538rem;
-    background: map-get($colors, "white");
-    &.swiper-pagination-bullet-active {
-      background: map-get($colors, "info");
+  .pagination-home {
+    .swiper-pagination-bullet {
+      opacity: 1;
+      border-radius: 0.1538rem;
+      background: map-get($colors, "white");
+
+      &.swiper-pagination-bullet-active {
+        background: map-get($colors, "info");
+      }
     }
   }
-}
 
-.nav-icons {
-  border-top: 1px solid $border-color;
-  border-bottom: 1px solid $border-color;
-  .nav-item {
-    width: 25%;
-    border-right: 1px solid $border-color;
-    &:nth-child(4n) {
-      border-right: none;
+  .nav-icons {
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+
+    .nav-item {
+      width: 25%;
+      border-right: 1px solid $border-color;
+
+      &:nth-child(4n) {
+        border-right: none;
+      }
     }
   }
-}
 </style>

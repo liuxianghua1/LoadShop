@@ -202,6 +202,12 @@ module.exports = app => {
         res.send(data)
     })
 
+    // 产品详情接口
+    router.get('/goodses/:id', async (req, res) => {
+        const data = await Goods.findById(req.params.id).populate('categories items1 partners._id').lean()
+        res.send(data)
+    })
+
     // 轮播图接口
     router.get('/swiper/list', async (req, res) => {
         const data = await Ad.find({

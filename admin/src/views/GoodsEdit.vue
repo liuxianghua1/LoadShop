@@ -97,7 +97,7 @@
           <el-row type="flex" style="flex-wrap: wrap">
             <el-col v-for="(item, i) in model.partners" :key="i" :md="12">
               <el-form-item label="产品">
-                <el-select filterable v-model="item.hero">
+                <el-select filterable v-model="item._id">
                   <el-option
                     v-for="item in goodses"
                     :key="item._id"
@@ -106,6 +106,7 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
+
 
               <el-form-item label="描述">
                 <el-input v-model="item.description" type="textarea"></el-input>
@@ -175,7 +176,6 @@ export default {
       const res = await this.$http.get(`rest/items`);
       // 把数据保存到data中
       this.items = res.data;
-      console.log(this.model)
     },
 
     async fetchGoodses() {

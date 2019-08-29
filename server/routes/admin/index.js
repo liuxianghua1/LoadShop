@@ -120,11 +120,10 @@ module.exports = app => {
     // 查询分类数据 并且限制10条
     router.get('/', async (req, res) => {
         const queryOptions = {}
-        if (req.Model.modelName === 'Article' || 'Goodse') {
+        if (req.Model.modelName === 'Article' || 'Goods') {
             // 那就加个populate parent 给他查出来 否则不加
             queryOptions.populate = 'categories'
         }
-        
         const items = await req.Model.find().setOptions(queryOptions).sort([['_id', -1]]).limit(100)
         res.send(items)
     })
