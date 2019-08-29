@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>物品分类列表</h1>
+    <h1>产品分类列表</h1>
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
 

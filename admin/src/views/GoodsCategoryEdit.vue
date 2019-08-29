@@ -1,10 +1,10 @@
 <template>
   <div class="about">
-    <h1>{{id ? '编辑' : '新建'}}物品分类</h1>
+    <h1>{{id ? '编辑' : '新建'}}产品分类</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
 
-      <el-form-item label="物品分类名称">
-        <el-input v-model="model.name" placeholder="请输入物品分类名称"></el-input>
+      <el-form-item label="产品分类名称">
+        <el-input v-model="model.name" placeholder="请输入产品分类名称"></el-input>
       </el-form-item>
       
       <el-form-item>

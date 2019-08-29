@@ -17,6 +17,9 @@ import ItemList from './views/ItemList.vue'
 import HeroEdit from './views/HeroEdit.vue'
 import HeroList from './views/HeroList.vue'
 
+import GoodsEdit from './views/GoodsEdit.vue'
+import GoodsList from './views/GoodsList.vue'
+
 import ArticleEdit from './views/ArticleEdit.vue'
 import ArticleList from './views/ArticleList.vue'
 
@@ -65,6 +68,10 @@ const router = new Router({
         { path: '/heroes/create', component: HeroEdit },
         { path: '/heroes/edit/:id', component: HeroEdit, props: true },
         { path: '/heroes/list', component: HeroList },
+
+        { path: '/goodses/create', component: GoodsEdit },
+        { path: '/goodses/edit/:id', component: GoodsEdit, props: true },
+        { path: '/goodses/list', component: GoodsList },
 
         { path: '/articles/create', component: ArticleEdit },
         { path: '/articles/edit/:id', component: ArticleEdit, props: true },

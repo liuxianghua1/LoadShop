@@ -90,7 +90,6 @@ module.exports = app => {
     router.post('/', async (req, res) => {
         const model = await req.Model.create(req.body)
         res.send(model)
-        console.log(model)
     })
 
 
@@ -110,7 +109,6 @@ module.exports = app => {
     })
 
     router.delete('/del/:id', async (req, res) => {
-        console.log('进来了')
         const delId = req.params.id.split(',')
         await req.Model.remove({ _id: { $in: delId } });
         res.send({
@@ -122,7 +120,7 @@ module.exports = app => {
     // 查询分类数据 并且限制10条
     router.get('/', async (req, res) => {
         const queryOptions = {}
-        if (req.Model.modelName === 'Article') {
+        if (req.Model.modelName === 'Article' || 'Goodse') {
             // 那就加个populate parent 给他查出来 否则不加
             queryOptions.populate = 'categories'
         }
