@@ -8,6 +8,9 @@ import CategoryList from './views/CategoryList.vue'
 import ArticleCategoryEdit from './views/ArticleCategoryEdit.vue'
 import ArticleCategoryList from './views/ArticleCategoryList.vue'
 
+import GoodsCategoryEdit from './views/GoodsCategoryEdit.vue'
+import GoodsCategoryList from './views/GoodsCategoryList.vue'
+
 import ItemEdit from './views/ItemEdit.vue'
 import ItemList from './views/ItemList.vue'
 
@@ -49,6 +52,10 @@ const router = new Router({
         { path: '/article_categories/create', component: ArticleCategoryEdit },
         { path: '/article_categories/edit/:id', component: ArticleCategoryEdit, props: true },
         { path: '/article_categories/list', component: ArticleCategoryList },
+
+        { path: '/goods_categories/create', component: GoodsCategoryEdit },
+        { path: '/goods_categories/edit/:id', component: GoodsCategoryEdit, props: true },
+        { path: '/goods_categories/list', component: GoodsCategoryList },
 
 
         { path: '/items/create', component: ItemEdit },

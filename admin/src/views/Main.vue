@@ -50,10 +50,18 @@
           </el-menu-item-group>
 
           <el-menu-item-group>
+            <template slot="title">物品分类</template>
+            <el-menu-item index="/goods_categories/create">物品分类</el-menu-item>
+            <el-menu-item index="/goods_categories/list">分类列表</el-menu-item>
+          </el-menu-item-group>
+
+          <el-menu-item-group>
             <template slot="title">文章分类</template>
             <el-menu-item index="/article_categories/create">新建分类</el-menu-item>
             <el-menu-item index="/article_categories/list">分类列表</el-menu-item>
           </el-menu-item-group>
+
+          
 
           <el-menu-item-group>
             <template slot="title">管理员</template>
