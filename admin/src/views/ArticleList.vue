@@ -6,7 +6,7 @@
       <el-button type="primary" :disabled="this.tableChecked.length === 0" @click="batchDelete(tableChecked)" >批量删除</el-button>
     </el-col>
 
-    <el-table :data="items" @selection-change="handleSelectionChange">
+    <el-table :data="items"  @selection-change="handleSelectionChange">
 
       <el-table-column type="selection" width="55"></el-table-column>
 
@@ -16,13 +16,16 @@
 
       <el-table-column prop="title" label="标题"></el-table-column>
 
-      <!-- <el-table-column prop="categories[0].name" label="文章分类"></el-table-column> -->
+      
 
       <el-table-column label="发布时间">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | date }}</span>
         </template>
       </el-table-column>
+
+      <el-table-column prop="categories[0].name" label="文章分类"></el-table-column>
+
 
       <el-table-column fixed="right" label="操作" width="300">
 
@@ -137,7 +140,6 @@ export default {
       const res = await this.$http.get("rest/articles");
       this.allItems = res.data;
       this.setPaginations();
-      // console.log(this.items)
     },
 
     /**

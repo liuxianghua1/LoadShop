@@ -3,7 +3,14 @@
     <h1>文章分类列表</h1>
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="240"></el-table-column>
+
       <el-table-column prop="name" label="分类名称"></el-table-column>
+
+      <el-table-column label="创建时间">
+        <template slot-scope="scope">
+          <span>{{ scope.row.createdAt | date }}</span>
+        </template>
+      </el-table-column>
 
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
@@ -34,7 +41,14 @@
   </div>
 </template>
 <script>
+import dayjs from "dayjs";
+
 export default {
+  filters: {
+    date(val) {
+      return dayjs(val).format("YYYY-MM-DD HH:mm"); // 过滤器过滤时间格式
+    }
+  },
   data() {
     return {
       items: [],
@@ -100,7 +114,9 @@ export default {
             message: "已取消删除"
           });
         });
-    }
+    },
+
+    
   },
   created() {
     // 在页面加载的时候执行
