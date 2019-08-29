@@ -3,6 +3,9 @@ module.exports = app => {
     const mongoose = require('mongoose')
     const Category = mongoose.model('Category')
     const ArticleCategory = mongoose.model('ArticleCategory')
+    const GoodsCategory = mongoose.model('GoodsCategory')
+    const Goods = mongoose.model('Goods')
+
     const Article = mongoose.model('Article')
     const Hero = mongoose.model('Hero')
     const Ad = mongoose.model('Ad')
@@ -151,6 +154,32 @@ module.exports = app => {
         cats.unshift({
             name: '热门',
             heroList: await Hero.find().where({
+                categories: { $in: subCats }
+            }).limit(10).lean()
+        })
+
+        res.send(cats)
+    })
+
+    // 产品列表接口
+    router.get('/goodses/list', async (req, res) => {
+        const goods = await GoodsCategory.find()
+        const cats = await GoodsCategory.aggregate([
+            { $match: { goods: goods._id } },
+            {
+                $lookup: {
+                    from: 'goods',
+                    localField: '_id',
+                    foreignField: 'categories',
+                    as: 'goodsList'
+                }
+            }
+        ])
+
+        const subCats = goods.map(v => v._id)
+        cats.unshift({
+            name: '热门',
+            goodsList: await Goods.find().where({
                 categories: { $in: subCats }
             }).limit(10).lean()
         })

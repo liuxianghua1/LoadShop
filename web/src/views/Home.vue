@@ -155,7 +155,27 @@
     </m-list-card>
 
 
-    
+    <m-list-card icon="card-hero" title="产品列表" :categories="goodsCats">
+      
+      <template #items="{category}">
+        
+
+        <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
+          
+          <router-link
+            tag="div"
+            :to="`/goodses/${item._id}`"
+            class="p-2 text-center"
+            style="width:20%"
+            v-for="(item, i) in category.goodsList"
+            :key="i"
+          >
+            <img :src="item.avatar" class="w-100" />
+            <div>{{item.name}}</div>
+          </router-link>
+        </div>
+      </template>
+    </m-list-card>
 
    
     <!-- end hero card -->
@@ -184,6 +204,7 @@ export default {
       },
       newsCats: [],
       heroCats: [],
+      goodsCats:[],
       swiper: [],
       flag: true
     };
@@ -194,16 +215,25 @@ export default {
       const res = await this.$http.get("news/list");
       this.newsCats = res.data;
     },
+
     async fetchHeroCate() {
       const res = await this.$http.get("heroes/list");
       this.heroCats = res.data;
     },
+
+    async fetchGoodsCate() {
+      const res = await this.$http.get("goodses/list");
+      this.goodsCats = res.data;
+
+    },
+
     async fetchSwiper() {
       const res = await this.$http.get("swiper/list");
       this.swiper = res.data[0].items;
     }
   },
   created() {
+    this.fetchGoodsCate()
     this.fetchSwiper();
     this.fetchNewsCate();
     this.fetchHeroCate();
