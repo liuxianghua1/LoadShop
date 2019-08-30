@@ -1,17 +1,25 @@
 <template>
-    <div class="bg-primary pt-3 pb-2">
-      <div class="nav nav-inverse pb-1 jc-around">
-        <div class="nav-item">
-          <router-link class="nav-link" tag="div" to="/">首页</router-link>
-        </div>
+  <div class="bg-primary pt-3 pb-2">
+    <div class="nav nav-inverse pb-1 jc-around">
 
+      <router-link class="nav-link" tag="div" to="/">
         <div class="nav-item">
-          <router-link class="nav-link" tag="div" to="/">攻略中心</router-link>
+          首页
         </div>
+      </router-link>
 
+      <router-link class="nav-link" tag="div" to="/NewsCount">
         <div class="nav-item">
-          <router-link class="nav-link" tag="div" to="/">赛事中心</router-link>
+          动态
         </div>
-      </div>
+      </router-link>
+
+      <router-link class="nav-link" tag="div" to="/GoodsCount">
+        <div class="nav-item">
+          产品
+        </div>
+      </router-link>
+
     </div>
+  </div>
 </template>

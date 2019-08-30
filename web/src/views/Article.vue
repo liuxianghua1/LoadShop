@@ -1,9 +1,6 @@
 <template>
 
   <div class="page-article" v-if="model">
-    <Top-Ad></Top-Ad>
-
-    <N-av></N-av>
 
     <div class="d-flex py-3 ai-center px-2 border-bottom">
       <div class="iconfont icon-back text-blue" @click="back"></div>

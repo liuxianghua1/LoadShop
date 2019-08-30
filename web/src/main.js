@@ -27,13 +27,12 @@ Vue.component('N-av', Nav)
 import axios from 'axios'
 
 // vant
-import { Tab, Tabs } from 'vant';
+// import { Tab, Tabs } from 'vant';
 
-Vue.use(Tab).use(Tabs);
+// Vue.use(Tab).use(Tabs);
 
-import { Pagination } from 'vant';
-
-Vue.use(Pagination);
+import { Pagination } from 'element-ui'
+Vue.use(Pagination)
 
 Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000/web/api'

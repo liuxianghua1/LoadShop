@@ -1,12 +1,6 @@
 <template>
   <div>
-
-    <Top-Ad></Top-Ad>
-
-    <N-av></N-av>
-
     <m-list-card class="pt-0" :categories="newCats">
-
       <template #items="{category}">
         <router-link
           tag="div"
@@ -23,9 +17,7 @@
           <span class="text-grey-1 fs-sm">{{ news.createdAt | date }}</span>
         </router-link>
       </template>
-
     </m-list-card>
-  
   </div>
 </template>
 <script>
@@ -39,16 +31,14 @@ export default {
   },
   data() {
     return {
-      newCats: [],
-      
+      newCats: []
     };
   },
   methods: {
-
     async fetchNewsCate() {
       const res = await this.$http.get("news/count");
       this.newCats = res.data;
-    },
+    }
   },
   created() {
     this.fetchNewsCate();

@@ -133,7 +133,6 @@
           }
         },
         newsCats: [],
-        heroCats: [],
         goodsCats: [],
         swiper: [],
       };
@@ -145,15 +144,9 @@
         this.newsCats = res.data;
       },
 
-      async fetchHeroCate() {
-        const res = await this.$http.get("heroes/list");
-        this.heroCats = res.data;
-      },
-
       async fetchGoodsCate() {
         const res = await this.$http.get("goodses/list");
         this.goodsCats = res.data;
-
       },
 
       async fetchSwiper() {
@@ -165,7 +158,6 @@
       this.fetchGoodsCate()
       this.fetchSwiper();
       this.fetchNewsCate();
-      this.fetchHeroCate();
     }
   };
 </script>

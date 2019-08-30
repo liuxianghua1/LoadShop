@@ -5,6 +5,7 @@ import Main from './views/Main.vue'
 import Article from './views/Article.vue'
 import Goods from './views/Goods.vue'
 import NewsCount from './views/NewsCount.vue'
+import GoodsCount from './views/GoodsCount.vue'
 
 
 Vue.use(Router)
@@ -16,10 +17,11 @@ export default new Router({
       component: Main,
       children: [
         { path: '/', name: 'home', component: Home },
+        { path: '/articles/:id', name: 'article', component: Article, props: true },
+        { path: '/NewsCount', name: 'newscount', component: NewsCount},
+        { path: '/GoodsCount', name: 'goodscount', component: GoodsCount},
       ]
     },
-    { path: '/articles/:id', name: 'article', component: Article, props: true },
-    { path: '/NewsCount', name: 'newscount', component: NewsCount},
     { path: '/goodses/:id', name: 'goods', component: Goods, props: true },
     {
       path: '/about',
