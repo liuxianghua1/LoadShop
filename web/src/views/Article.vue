@@ -10,17 +10,11 @@
     <!-- 相关资讯 -->
     <div class="px-3 border-top py-3">
       <div class="d-flex ai-center">
-        <i class="iconfont icon-Menu"></i>
+        <i class="iconfont icon-tubiao-"></i>
         <strong class="text-blue fs-lg ml-1">相关资讯</strong>
       </div>
       <div class="pt-2 fs-lg">
-        <router-link
-        class="py-1"
-          tag="div"
-          :to="`/articles/${item._id}`"
-          v-for="item in model.related"
-          :key="item._id"
-        >{{item.title}}</router-link>
+        <router-link class="py-1" tag="div" :to="`/articles/${item._id}`" v-for="item in model.related" :key="item._id" >{{item.title}} [{{item.categories[0].name}}]</router-link>
       </div>
     </div>
   </div>

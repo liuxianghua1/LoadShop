@@ -77,65 +77,38 @@
         </div>
       </div>
 
-      <!-- <div class="bg-light py-2 fs-sm ai-center">
-        <i class="sprite sprite-arrow mr-2"></i>
-        <span>收起</span>
-      </div>-->
-
     </div>
-
     <!-- end nav icons -->
 
-    <m-list-card icon="Menu" title="新闻资讯" menu go="baidu.com" :categories="newsCats">
+    <m-list-card icon="news" title="新闻资讯" menu go="baidu.com" :categories="newsCats">
+
       <template #items="{category}">
-        <router-link tag="div" :to="`/articles/${news._id}`" class="py-2 fs-lg d-flex"
-          v-for="(news, i) in category.newsList" :key="i">
+        <router-link tag="div" :to="`/articles/${news._id}`" class="py-2 fs-lg d-flex" v-for="(news, i) in category.newsList" :key="i">
           <span class="text-info-1">[{{news.CategoryName}}]</span>
           <span class="px-2">|</span>
           <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
           <span class="text-grey-1 fs-sm">{{news.createdAt | date}}</span>
         </router-link>
       </template>
+
     </m-list-card>
     <!-- end news card -->
 
 
-    <m-list-card icon="card-hero" title="英雄列表" menu :categories="heroCats">
+    <m-list-card icon="chanpinliebiao" title="产品列表" menu :categories="goodsCats">
 
       <template #items="{category}">
-
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
-
-          <router-link tag="div" :to="`/heroes/${hero._id}`" class="p-2 text-center" style="width:20%"
-            v-for="(hero, i) in category.heroList" :key="i">
-            <img :src="hero.avatar" class="w-100" />
-            <div>{{hero.name}}</div>
-          </router-link>
-
-        </div>
-
-      </template>
-    </m-list-card>
-
-
-    <m-list-card icon="card-hero" title="产品列表" menu :categories="goodsCats">
-
-      <template #items="{category}">
-
-
-        <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
-
-          <router-link tag="div" :to="`/goodses/${item._id}`" class="p-2 text-center" style="width:20%"
-            v-for="(item, i) in category.goodsList" :key="i">
+          <router-link tag="div" :to="`/goodses/${item._id}`" class="p-2 text-center" style="width:20%" v-for="(item, i) in category.goodsList" :key="i">
             <img :src="item.avatar" class="w-100" />
             <div>{{item.name}}</div>
           </router-link>
         </div>
       </template>
+
     </m-list-card>
+<!-- end goods card -->
 
-
-    <!-- end hero card -->
   </div>
 </template>
 <script>

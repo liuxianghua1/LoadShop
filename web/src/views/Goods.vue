@@ -6,10 +6,10 @@
         <span class="text-white">王者荣耀</span>
         <span class="ml-2">攻略站</span>
       </div>
-      <router-link to="/" tag="div">更多产品 &gt;</router-link>
+      <router-link to="/" class="d-flex"  tag="div">更多产品<i class="iconfont icon-dayuhao"></i></router-link>
     </div>
     <!-- 顶端开始 -->
-    <div class="top" :style="{ 'background-image': `url(${model.banner})` }">
+    <div class="top" :style="{ 'background-image': `url(${model.avatar})` }">
       <div class="info text-white p-3 d-flex flex-column h-100 jc-end">
         <div class="fs-sm">{{ model.title }}</div>
         <h2 class="my-2">{{ model.name }}</h2>
@@ -27,9 +27,7 @@
             <span>实用</span>
             <span class="badge bg-dark">{{ model.scores.utility }}</span>
           </div>
-          <router-link to="/" tag="span" class="text-grey fs-sm"
-            >皮肤:2 &gt;</router-link
-          >
+          
         </div>
       </div>
     </div>
@@ -38,33 +36,35 @@
       <div class="px-3 bg-white">
         <div class="nav d-flex jc-around pt-3 pb-2 border-bottom">
           <div class="nav-item active">
-            <div class="nav-link">英雄初始</div>
+            <div class="nav-link">产品初始</div>
           </div>
         </div>
       </div>
-      <!-- <swiper>
-        <swiper-slide> -->
+     
       <div>
-        <!-- 技能专区 -->
+
         <div class="p-3 bg-white border-bottom">
           <div class="d-flex">
-            <router-link tag="button" to="/" class="btn btn-lg flex-1">
-              <i class="iconfont icon-Menu"></i>
-              英雄介绍视频
-            </router-link>
-
-            <router-link tag="button" to="/" class="btn btn-lg flex-1 ml-2">
-              <i class="iconfont icon-Menu"></i>
-              英雄介绍视频
-            </router-link>
-          </div>
           
+            <div class="btn btn-lg flex-1 mr-3">
+              <a href="https://github.com/elemefe" class="bottonjump card-header d-flex ai-center" target="_blank" rel="noopener noreferrer">
+              <i class="iconfont icon-shipin"></i>
+              产品介绍视频
+            </a>
+            </div>
+
+            <div class="btn btn-lg flex-1">
+              <a href="https://github.com/elemefe" class="bottonjump card-header d-flex ai-center" target="_blank" rel="noopener noreferrer">
+            <i class="iconfont icon-shipin"></i>
+              产品施工视频
+            </a></div>
+          </div>
+    
         </div>
-        <!-- 技能专区结束 -->
 
         <!-- 出装专区 -->
         <m-card plain icon="Menu" title="出装推荐" class="hero-items">
-          <div class="fs-xl">顺风出装</div>
+          <div class="fs-xl">搭配工具</div>
           <div class="d-flex jc-around text-center mt-3">
             <div v-for="item in model.items1" :key="item.name">
               <img :src="item.icon" class="icon" />
@@ -75,57 +75,63 @@
         </m-card>
         <!-- 出装专区结束 -->
 
-        <m-card plain icon="Menu" title="产品颜色">
+        <m-card plain icon="color" title="产品颜色">
           <p class="m-0">{{ model.color }}</p>
         </m-card>
 
-        <m-card plain icon="Menu" title="产品特色">
+        <m-card plain icon="tese" title="产品特色">
           <p class="m-0">{{ model.feature }}</p>
         </m-card>
 
-        <m-card plain icon="Menu" title="适用范围">
+        <m-card plain icon="shiyongloupan" title="适用范围">
           <p class="m-0">{{ model.scope }}</p>
         </m-card>
 
-        <!-- 英雄关系开始 -->
-        <m-card plain icon="Menu" title="产品关系">
+        <!-- 产品关系开始 -->
+        <m-card plain icon="shougaoguanxi" title="产品关系">
           <div class="fs-xl">最佳搭档</div>
-          <div
-            v-for="item in model.partners"
-            :key="item.name"
-            class="d-flex pt-3"
-          >
+          <div v-for="item in model.partners" :key="item.name" >
+            <router-link class="py-1 d-flex pt-3" tag="div" :to="`/goodses/${item._id._id}`">
             <img :src="item._id.avatar" height="50" />
             <p class="flex-1 ml-3 mt-1 m-0">{{ item.description }}</p>
+            </router-link>
+            
+
           </div>
-          <div class="border-bottom mt-3"></div>
         </m-card>
-        <!-- 英雄关系结束 -->
+        <!-- 产品关系结束 -->
 
       </div>
-      <!-- </swiper-slide>
-        <swiper-slide></swiper-slide>
-      </swiper> -->
+      
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  watch: {
+    // 简写 id变化执行fetch方法
+    // 监听如果id变化了重新执行一次fetch数据方法
+    id: 'fetch',
+  },
+
   props: {
     id: { required: true }
   },
+
   data() {
     return {
       model: null,
     };
   },
+
   methods: {
     async fetch() {
       const res = await this.$http.get(`goodses/${this.id}`);
       this.model = res.data;
     }
   },
+
   created() {
     this.fetch();
   },

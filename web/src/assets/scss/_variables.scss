@@ -1,5 +1,5 @@
 // colors
-$colors: ("primary": #db9e3f,
+$colors: ("primary": #84C225,
     "info": #4b67af,
     "danger": #791a15,
     "info-1": #464f73,
@@ -12,9 +12,11 @@ $colors: ("primary": #db9e3f,
     "light-1": #d4d9de,
     "grey": #999,
     "grey-1": #666,
+    "grey-2": #707070,
     "dark-1": #343440,
     "dark": #222,
     "black": #000,
+    "black-1": #1f1f1f,
 );
 
 $border-color: map-get($colors, "light-1");

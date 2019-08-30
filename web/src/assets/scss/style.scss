@@ -196,6 +196,18 @@ $type in $spacing-types {
     height: 100%;
 }
 
+// a href
+.jump {
+    text-decoration: none;
+    color: white;
+}
+
+// botton href
+.bottonjump {
+    text-decoration: none;
+    color: black;
+}
+
 // sprite
 .sprite {
     background: url(../images/index.png) no-repeat 0 0;
