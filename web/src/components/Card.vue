@@ -1,5 +1,5 @@
 <template>
-  <div class="card bg-white p-3 mt-3">
+  <div class="card bg-white p-3">
     <div
       class="card-header d-flex ai-center"
       :class="{ 'border-bottom': !plain, 'pb-3': !plain }"
@@ -27,8 +27,8 @@ export default {
   },
   props: {
     go: { type: String },
-    title: { type: String, required: true },
-    icon: { type: String, required: true },
+    title: { type: String,  },
+    icon: { type: String,  },
     plain: { type: Boolean }
   }
 };

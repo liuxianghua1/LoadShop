@@ -22,9 +22,9 @@
     props: {
       menu: { type: Boolean }, //控制显示不显示menu键
       go: { type: String, }, //控制menu键的跳转
-      icon: { type: String, required: true },
-      title: { type: String, required: true },
-      categories: { type: Array, required: true }
+      icon: { type: String,},
+      title: { type: String,},
+      categories: { type: Array,}
     },
     data() {
       return {

@@ -80,7 +80,7 @@
     </div>
     <!-- end nav icons -->
 
-    <m-list-card icon="news" title="新闻资讯" menu go="baidu.com" :categories="newsCats">
+    <m-list-card icon="news" class="mt-3" title="新闻资讯" menu go="NewsCount" :categories="newsCats">
 
       <template #items="{category}">
         <router-link tag="div" :to="`/articles/${news._id}`" class="py-2 fs-lg d-flex" v-for="(news, i) in category.newsList" :key="i">
@@ -95,7 +95,7 @@
     <!-- end news card -->
 
 
-    <m-list-card icon="chanpinliebiao" title="产品列表" menu :categories="goodsCats">
+    <m-list-card icon="chanpinliebiao" class="mt-3" title="产品列表" menu :categories="goodsCats">
 
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
@@ -136,7 +136,6 @@
         heroCats: [],
         goodsCats: [],
         swiper: [],
-        flag: true
       };
     },
 
@@ -180,7 +179,7 @@
       background: map-get($colors, "white");
 
       &.swiper-pagination-bullet-active {
-        background: map-get($colors, "info");
+        background: map-get($colors, "primary");
       }
     }
   }

@@ -1,5 +1,10 @@
 <template>
+
   <div class="page-article" v-if="model">
+    <Top-Ad></Top-Ad>
+
+    <N-av></N-av>
+
     <div class="d-flex py-3 ai-center px-2 border-bottom">
       <div class="iconfont icon-back text-blue" @click="back"></div>
       <strong class="flex-1 text-blue pl-2 mr-2">{{model.title}}</strong>
@@ -48,7 +53,6 @@ export default {
     async fetch() {
       const res = await this.$http.get(`articles/${this.id}`);
       this.model = res.data;
-      console.log(this.model)
     },
 
     back() {
