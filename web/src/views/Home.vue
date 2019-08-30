@@ -95,7 +95,7 @@
     <!-- end news card -->
 
 
-    <m-list-card icon="chanpinliebiao" class="mt-3" title="产品列表" menu :categories="goodsCats">
+    <m-list-card icon="chanpinliebiao" class="mt-3" go="GoodsCount" title="产品列表" menu :categories="goodsCats">
 
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">

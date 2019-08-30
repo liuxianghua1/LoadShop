@@ -1,7 +1,6 @@
 <template>
   <div>
-    <m-list-card icon="chanpinliebiao" class="mt-3" title="产品列表" menu :categories="goodsCats">
-
+    <m-list-card class="pt-0" :categories="goodsCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem;">
           <router-link tag="div" :to="`/goodses/${item._id}`" class="p-2 text-center" style="width:20%" v-for="(item, i) in category.goodsList" :key="i">
@@ -23,7 +22,7 @@ export default {
   },
   methods: {
     async fetchGoodsCate() {
-        const res = await this.$http.get("goodses/list");
+        const res = await this.$http.get("goodses/count");
         this.goodsCats = res.data;
       },
   },

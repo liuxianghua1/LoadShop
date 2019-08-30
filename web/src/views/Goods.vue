@@ -6,7 +6,7 @@
         <span class="text-white">王者荣耀</span>
         <span class="ml-2">攻略站</span>
       </div>
-      <router-link to="/" class="d-flex"  tag="div">更多产品<i class="iconfont icon-dayuhao"></i></router-link>
+      <router-link :to="{ path: '/GoodsCount' }" class="d-flex"  tag="div">更多产品<i class="iconfont icon-dayuhao"></i></router-link>
     </div>
     <!-- 顶端开始 -->
     <div class="top" :style="{ 'background-image': `url(${model.avatar})` }">
