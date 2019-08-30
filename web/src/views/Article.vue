@@ -14,7 +14,10 @@
         <strong class="text-blue fs-lg ml-1">相关资讯</strong>
       </div>
       <div class="pt-2 fs-lg">
-        <router-link class="py-1" tag="div" :to="`/articles/${item._id}`" v-for="item in model.related" :key="item._id" >{{item.title}} [{{item.categories[0].name}}]</router-link>
+        <router-link class="py-1 d-flex" tag="div" :to="`/articles/${item._id}`" v-for="item in model.related" :key="item._id" >
+        <span class="flex-1">{{item.title}} [{{item.categories[0].name}}]</span>
+        <span class="text-grey fs-x">{{item.createdAt | date}}</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -45,6 +48,7 @@ export default {
     async fetch() {
       const res = await this.$http.get(`articles/${this.id}`);
       this.model = res.data;
+      console.log(this.model)
     },
 
     back() {
