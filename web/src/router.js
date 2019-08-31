@@ -16,10 +16,10 @@ export default new Router({
       path: '/',
       component: Main,
       children: [
-        { path: '/', name: 'home', component: Home },
+        { path: '/', name: 'home', component: Home, meta: { title : '领军者官网-鲁班大师' }},
         { path: '/articles/:id', name: 'article', component: Article, props: true },
-        { path: '/NewsCount', name: 'newscount', component: NewsCount},
-        { path: '/GoodsCount', name: 'goodscount', component: GoodsCount},
+        { path: '/NewsCount', name: 'newscount', component: NewsCount, meta: { title : '新闻列表-领军者官网-鲁班大师' }},
+        { path: '/GoodsCount', name: 'goodscount', component: GoodsCount, meta: { title : '产品列表-领军者官网-鲁班大师' }},
       ]
     },
     { path: '/goodses/:id', name: 'goods', component: Goods, props: true },
