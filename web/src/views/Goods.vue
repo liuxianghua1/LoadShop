@@ -1,17 +1,17 @@
 <template>
-  <div class="page-hero" v-if="model">
+  <div class="page-hero" v-if="model" v-wechat-title="model.name">
     <div class="topbar bg-black py-2 px-3 d-flex ai-center text-white">
       <img src="../assets/logo.png" height="30" />
       <div class="px-2 flex-1">
-        <span class="text-white">王者荣耀</span>
-        <span class="ml-2">攻略站</span>
+        <span class="text-white">领军者</span>
+        <span class="ml-2">产品站</span>
       </div>
       <router-link :to="{ path: '/GoodsCount' }" class="d-flex"  tag="div">更多产品<i class="iconfont icon-dayuhao"></i></router-link>
     </div>
     <!-- 顶端开始 -->
     <div class="top" :style="{ 'background-image': `url(${model.avatar})` }">
       <div class="info text-white p-3 d-flex flex-column h-100 jc-end">
-        <div class="fs-sm">{{ model.title }}</div>
+        <!-- <div class="fs-sm">{{ model.title }}</div> -->
         <h2 class="my-2">{{ model.name }}</h2>
         <div class="fs-sm">
           {{ model.categories.map(v => v.name).join("/") }}

@@ -1,6 +1,6 @@
 <template>
 
-  <div class="page-article" v-if="model">
+  <div class="page-article" v-wechat-title="model.title" v-if="model">
 
     <div class="d-flex py-3 ai-center px-2 border-bottom">
       <div class="iconfont icon-back text-blue" @click="back"></div>

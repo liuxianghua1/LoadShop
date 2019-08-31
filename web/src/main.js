@@ -38,6 +38,9 @@ Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000/web/api'
 })
 
+import VueWechatTitle from 'vue-wechat-title'
+Vue.use(VueWechatTitle)
+
 // 根据路由设置标题
 router.beforeEach((to, from, next) => {
   /*路由发生改变修改页面的title */
