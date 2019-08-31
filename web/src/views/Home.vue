@@ -3,9 +3,9 @@
 
     <swiper :options="swiperOption" autoplay>
       <swiper-slide v-for="(item, i) in swiper" :key="i">
-        <router-link :to="item.url">
+          <a :href="item.url">
           <img class="w-100" :src="item.image">
-        </router-link>
+          </a>
       </swiper-slide>
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
     </swiper>

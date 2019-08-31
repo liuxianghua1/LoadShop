@@ -140,8 +140,20 @@ module.exports = app => {
     // 图片上传
     app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
         const file = req.file
+        const {size, mimetype} = req.file
+        const types = ['jpg', 'jpeg', 'png', 'gif']//运行上传的类型
+        const tmpType = mimetype.split('/')[1]
+
+        if (types.indexOf(tmpType) == -1) {
+            res.status(200).json({
+                err_code: 2,
+                message: 'The picture type is incorrect'
+            })
+        } else {
+        console.log('ok')
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
+        }
     })
 
     app.post('/admin/api/login', async (req, res) => {

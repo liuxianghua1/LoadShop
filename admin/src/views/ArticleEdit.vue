@@ -48,9 +48,17 @@ export default {
   methods: {
     // 上传图片
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      
       const formData = new FormData();
       formData.append("file", file);
       const res = await this.$http.post("upload", formData);
+      var err_code = res.data.err_code;
+      if (err_code === 2) {
+        this.$message({
+          type: "error",
+          message: "图片类型不正确"
+        });
+      }
       Editor.insertEmbed(cursorLocation, "image", res.data.url);
       resetUploader();
     },
