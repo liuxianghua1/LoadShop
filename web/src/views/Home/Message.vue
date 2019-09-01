@@ -14,22 +14,22 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="姓名" prop="pass">
+          <el-form-item label="姓名" prop="name">
             <el-input
               type="text"
-              v-model="ruleForm.pass"
+              v-model="ruleForm.name"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="手机号码" prop="checkPass">
+          <el-form-item label="手机号码" prop="phone">
             <el-input
               type="number"
-              v-model="ruleForm.checkPass"
+              v-model.number="ruleForm.phone"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="留言内容" prop="age">
-            <el-input v-model.number="ruleForm.age"></el-input>
+          <el-form-item label="留言内容" prop="content">
+            <el-input type="text" v-model="ruleForm.content"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="success" @click="submitForm('ruleForm')"
@@ -48,6 +48,10 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { Toast } from 'vant';
+
+Vue.use(Toast);
 export default {
   data() {
     var checkAge = (rule, value, callback) => {
@@ -64,32 +68,41 @@ export default {
       }
     };
     var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入手机号码"));
+      if (!value) {
+        return callback(new Error("手机号不能为空"));
       } else {
-        callback();
+        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+        if (reg.test(value)) {
+          callback();
+        } else {
+          return callback(new Error("请输入正确的手机号"));
+        }
       }
     };
     return {
       ruleForm: {
-        pass: "",
-        checkPass: "",
-        age: ""
+        name: "",
+        phone: "",
+        content: ""
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        age: [{ validator: checkAge, trigger: "blur" }]
+        name: [{ validator: validatePass, trigger: "blur" }],
+        phone: [{ validator: validatePass2, trigger: "blur" }],
+        content: [{ validator: checkAge, trigger: "blur" }]
       }
     };
   },
   methods: {
+    async message() {
+      let res = await this.$http.post("message_add", this.ruleForm);
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.message();
+          Toast("提交成功");
+          this.$router.push('/')
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

@@ -27,8 +27,8 @@ Vue.component('N-av', Nav)
 import 'vant/lib/index.css';
 import { Popup } from 'vant';
 Vue.use(Popup);
-import { Tab, Tabs } from 'vant';
-Vue.use(Tab).use(Tabs);
+import { Tab, Tabs, Toast } from 'vant';
+Vue.use(Tab).use(Tabs).use(Toast);
 import { Form, FormItem, Button, Input , InputNumber } from 'element-ui';
 Vue.use(Form).use(FormItem).use(Button).use(Input).use(InputNumber);
 

@@ -7,9 +7,21 @@ module.exports = app => {
     const Goods = mongoose.model('Goods')
 
     const Article = mongoose.model('Article')
+    const Message = mongoose.model('Message')
     const Hero = mongoose.model('Hero')
     const Ad = mongoose.model('Ad')
 
+
+    // 创建用户
+    router.post('/message_add', async (req, res) => {
+        body = req.body
+        console.log(body)
+        new Message(body).save (function (err, data) {
+            if (err) {
+                console.log(err)
+            }
+        })
+    })
 
     // 新闻列表接口
     router.get('/news/list', async (req, res) => {
