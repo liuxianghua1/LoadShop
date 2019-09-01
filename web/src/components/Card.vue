@@ -2,8 +2,7 @@
   <div class="card bg-white p-3">
     <div
       class="card-header d-flex ai-center"
-      :class="{ 'border-bottom': !plain, 'pb-3': !plain }"
-    >
+      :class="{ 'border-bottom': !plain, 'pb-3': !plain }">
       <i class="iconfont" :class="`icon-${icon}`"></i>
 
       <div class="fs-xl flex-1 px-2">
@@ -11,8 +10,12 @@
       </div>
       <router-link tag="div" :to="`${go}`">
         <i class="iconfont icon-menu" v-if="!plain"></i>
+        
       </router-link>
+
     </div>
+
+        <img :src="`${img}`" v-if="!imgshow" style="width:100%">
 
     <div class="card-body pt-3">
       <slot></slot>
@@ -26,10 +29,12 @@ export default {
     return {};
   },
   props: {
+    img: { type: String },
     go: { type: String },
     title: { type: String,  },
     icon: { type: String,  },
-    plain: { type: Boolean }
+    plain: { type: Boolean },
+    imgshow: { type: Boolean }
   }
 };
 </script>

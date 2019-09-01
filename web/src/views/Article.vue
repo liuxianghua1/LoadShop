@@ -53,7 +53,7 @@ export default {
     },
 
     back() {
-      this.$router.push("/");
+      this.$router.go(-1);
     }
   },
   created() {

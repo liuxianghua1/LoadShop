@@ -1,5 +1,5 @@
 <template>
-  <m-card :icon="icon" :plain="!menu" :go="go" :title="title">
+  <m-card :icon="icon" :plain="!menu" :imgshow="!imgshow" :go="go" :img="img" :title="title">
     <div class="nav jc-between">
       <div class="nav-item" :class="{ active: active === i }" v-for="(category, i) in categories" :key="i"
         @click="$refs.list.swiper.slideTo(i)">
@@ -20,11 +20,13 @@
 <script>
   export default {
     props: {
+      img: { type: String, }, //控制图片地址
       menu: { type: Boolean }, //控制显示不显示menu键
       go: { type: String, }, //控制menu键的跳转
       icon: { type: String,},
       title: { type: String,},
-      categories: { type: Array,}
+      categories: { type: Array,},
+      imgshow: { type: Boolean }
     },
     data() {
       return {

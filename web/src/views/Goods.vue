@@ -9,7 +9,10 @@
       <router-link :to="{ path: '/GoodsCount' }" class="d-flex"  tag="div">更多产品<i class="iconfont icon-dayuhao"></i></router-link>
     </div>
     <!-- 顶端开始 -->
+
     <div class="top" :style="{ 'background-image': `url(${model.avatar})` }">
+      
+      
       <div class="info text-white p-3 d-flex flex-column h-100 jc-end">
         <!-- <div class="fs-sm">{{ model.title }}</div> -->
         <h2 class="my-2">{{ model.name }}</h2>
@@ -17,6 +20,7 @@
           {{ model.categories.map(v => v.name).join("/") }}
         </div>
         <div class="d-flex jc-between pt-2">
+
           <div class="scores d-flex ai-center" v-if="model.scores">
             <span>难度</span>
             <span class="badge bg-primary">{{ model.scores.difficult }}</span>
@@ -63,7 +67,7 @@
         </div>
 
         <!-- 出装专区 -->
-        <m-card plain icon="Menu" title="出装推荐" class="hero-items">
+        <m-card plain icon="Menu" title="出装推荐" class="hero-items mt-3">
           <div class="fs-xl">搭配工具</div>
           <div class="d-flex jc-around text-center mt-3">
             <div v-for="item in model.items1" :key="item.name">
@@ -75,20 +79,20 @@
         </m-card>
         <!-- 出装专区结束 -->
 
-        <m-card plain icon="color" title="产品颜色">
+        <m-card plain icon="color" title="产品颜色" class="mt-3">
           <p class="m-0">{{ model.color }}</p>
         </m-card>
 
-        <m-card plain icon="tese" title="产品特色">
+        <m-card plain icon="tese" title="产品特色" class="mt-3">
           <p class="m-0">{{ model.feature }}</p>
         </m-card>
 
-        <m-card plain icon="shiyongloupan" title="适用范围">
+        <m-card plain icon="shiyongloupan" title="适用范围" class="mt-3">
           <p class="m-0">{{ model.scope }}</p>
         </m-card>
 
         <!-- 产品关系开始 -->
-        <m-card plain icon="shougaoguanxi" title="产品关系">
+        <m-card plain icon="shougaoguanxi" title="产品关系" class="mt-3">
           <div class="fs-xl">最佳搭档</div>
           <div v-for="item in model.partners" :key="item.name" >
             <router-link class="py-1 d-flex pt-3" tag="div" :to="`/goodses/${item._id._id}`">
@@ -129,7 +133,8 @@ export default {
     async fetch() {
       const res = await this.$http.get(`goodses/${this.id}`);
       this.model = res.data;
-    }
+    },
+
   },
 
   created() {

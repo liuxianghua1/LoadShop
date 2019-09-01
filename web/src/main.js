@@ -23,16 +23,14 @@ Vue.component('Top-Ad', TopAd)
 import Nav from './components/Nav.vue';
 Vue.component('N-av', Nav)
 
+//vant
+import 'vant/lib/index.css';
+import { Popup } from 'vant';
+
+Vue.use(Popup);
 
 import axios from 'axios'
 
-// vant
-// import { Tab, Tabs } from 'vant';
-
-// Vue.use(Tab).use(Tabs);
-
-import { Pagination } from 'element-ui'
-Vue.use(Pagination)
 
 Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000/web/api'
