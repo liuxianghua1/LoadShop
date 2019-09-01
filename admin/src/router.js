@@ -30,6 +30,9 @@ import AdminUserEdit from './views/AdminUserEdit.vue'
 import AdminUserList from './views/AdminUserList.vue'
 import AdminUserUpdate from './views/AdminUserUpdate.vue'
 
+import MessageList from './views/MessageList.vue'
+
+
 
 
 Vue.use(Router)
@@ -84,6 +87,8 @@ const router = new Router({
         { path: '/admin_users/create', component: AdminUserEdit },
         { path: '/admin_users/update/:id', component: AdminUserUpdate, props: true },
         { path: '/admin_users/list', component: AdminUserList },
+
+        { path: '/message/list', component: MessageList },
 
       ]
     },
