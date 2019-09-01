@@ -16,63 +16,58 @@
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
       <div class="d-flex flex-wrap">
         <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-news"></i>
-            <div class="py-2">爆料站</div>
+          <router-link tag="div" to="/About">
+            <i class="iconfont icon-qiyeguanli"></i>
+            <div class="py-2">关于我们</div>
           </router-link>
         </div>
 
         <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-story"></i>
-            <div class="py-2">故事站</div>
+          <router-link tag="div" to="/Culture">
+            <i class="iconfont icon-qiyewenhua"></i>
+            <div class="py-2">企业文化</div>
           </router-link>
         </div>
 
         <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-shop"></i>
-            <div class="py-2">周边商城</div>
+          <router-link tag="div" to="/NewsCount">
+            <i class="iconfont icon-news"></i>
+            <div class="py-2">新闻资讯</div>
+          </router-link>
+        </div>
+
+         <div class="nav-item mb-3">
+          <router-link tag="div" to="/GoodsCount">
+            <i class="iconfont icon-chanpinliebiao"></i>
+            <div class="py-2">产品中心</div>
           </router-link>
         </div>
 
         <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-serve"></i>
-            <div class="py-2">体验服</div>
+          <router-link tag="div" to="/Agency">
+            <i class="iconfont icon-daili"></i>
+            <div class="py-2">经销代理</div>
           </router-link>
         </div>
 
         <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-guideSign"></i>
-            <div class="py-2">新人专区</div>
+          <router-link tag="div" to="/Oem">
+            <i class="iconfont icon-hezuo"></i>
+            <div class="py-2">代工合作</div>
           </router-link>
         </div>
 
-        <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-inherited"></i>
-            <div class="py-2">荣耀·传承</div>
-          </router-link>
-        </div>
+       
 
         <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-avatar"></i>
-            <div class="py-2">同人社区</div>
-          </router-link>
-        </div>
-
-        <div class="nav-item mb-3">
-          <router-link tag="div" to="/">
-            <i class="sprite sprite-camp"></i>
-            <div class="py-2">王者营地</div>
+          <router-link tag="div" to="/message">
+            <i class="iconfont icon-liuyan"></i>
+            <div class="py-2">网站留言</div>
           </router-link>
         </div>
 
         <div @click="showPopup" class="nav-item mb-3">
-            <i class="sprite sprite-weixin"></i>
+            <i class="iconfont icon-gongzhonghao"></i>
             <div class="py-2">公众号</div>
         </div>
       </div>

@@ -26,8 +26,12 @@ Vue.component('N-av', Nav)
 //vant
 import 'vant/lib/index.css';
 import { Popup } from 'vant';
-
 Vue.use(Popup);
+import { Tab, Tabs } from 'vant';
+Vue.use(Tab).use(Tabs);
+import { Form, FormItem, Button, Input , InputNumber } from 'element-ui';
+Vue.use(Form).use(FormItem).use(Button).use(Input).use(InputNumber);
+
 
 import axios from 'axios'
 
