@@ -57,7 +57,7 @@ module.exports = app => {
             },
         ])
         const hotNews = ['5d6650c71eb74c4224d1c7bb', '5d665d419cefd11b24f48858', '5d665d909cefd11b24f4885d', '5d671f3c38448a1fd44a641f']
-        const subCats = demo.map(v => v) //新闻 公告 活动 赛事
+        const subCats = demo.map(v => v) //新闻 公告 活动 公司
         cats.unshift({
             name: '热门',
             newsList: await Article.find().where({
@@ -80,7 +80,7 @@ module.exports = app => {
                     categories: { $in: hotNews[2] }
                 }).populate('categories').sort({ '_id': -1 }).limit(5).lean()
             }, {
-                name: '赛事',
+                name: '公司',
                 newsList: await Article.find().where({
                     categories: { $in: hotNews[3] }
                 }).populate('categories').sort({ '_id': -1 }).limit(5).lean()
@@ -125,7 +125,7 @@ module.exports = app => {
             },
         ])
         const hotNews = ['5d6650c71eb74c4224d1c7bb', '5d665d419cefd11b24f48858', '5d665d909cefd11b24f4885d', '5d671f3c38448a1fd44a641f']
-        const subCats = demo.map(v => v) //新闻 公告 活动 赛事
+        const subCats = demo.map(v => v) //新闻 公告 活动 公司
         cats.unshift({
             name: '全部',
             newsList: await Article.find().where({

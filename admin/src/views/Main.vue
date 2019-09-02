@@ -18,12 +18,6 @@
           </el-menu-item-group>
 
           <el-menu-item-group>
-            <template slot="title">英雄</template>
-            <el-menu-item index="/heroes/create">新建英雄</el-menu-item>
-            <el-menu-item index="/heroes/list">英雄列表</el-menu-item>
-          </el-menu-item-group>
-
-          <el-menu-item-group>
             <template slot="title">产品</template>
             <el-menu-item index="/goodses/create">新建产品</el-menu-item>
             <el-menu-item index="/goodses/list">产品列表</el-menu-item>
@@ -58,12 +52,6 @@
           <template slot="title">
             <i class="el-icon-setting"></i>系统设置
           </template>
-
-          <el-menu-item-group>
-            <template slot="title">分类</template>
-            <el-menu-item index="/categories/create">新建分类</el-menu-item>
-            <el-menu-item index="/categories/list">分类列表</el-menu-item>
-          </el-menu-item-group>
 
           <el-menu-item-group>
             <template slot="title">产品分类</template>
@@ -171,7 +159,7 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-          this.Adminexit();
+      this.$router.push({ path: "/login" });
         })
     }
   },

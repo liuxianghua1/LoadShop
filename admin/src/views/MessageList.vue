@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    <h1>物品列表</h1>
+    <h1>留言列表</h1>
 
     <el-col :span="24">
-      <el-button type="primary" :disabled="this.tableChecked.length === 0" @click="batchDelete(tableChecked)" >批量删除</el-button>
+      <el-button type="success" :disabled="this.tableChecked.length === 0" @click="batchDelete(tableChecked)" >批量已读</el-button>
     </el-col>
 
     <el-table :data="items" @selection-change="handleSelectionChange">
@@ -116,7 +116,7 @@ export default {
         type: "warning"
       })
         .then(async () => {
-          await this.$http.delete("rest/items/del/" + ids);
+          await this.$http.delete("rest/message/del/" + ids);
           this.$message({
             type: "success",
             message: "已读成功!"
@@ -146,7 +146,7 @@ export default {
         // 点击确定的事件
         .then(async () => {
           // 调用接口根据id删除一条数据
-          await this.$http.delete(`rest/items/${row._id}`);
+          await this.$http.delete(`rest/message/${row._id}`);
           // 返回一条信息
           this.$message({
             type: "success",

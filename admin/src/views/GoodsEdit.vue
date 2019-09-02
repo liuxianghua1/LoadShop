@@ -27,21 +27,6 @@
             </el-upload>
           </el-form-item>
 
-          <!-- 背景图 -->
-          <el-form-item label="Banner">
-            <el-upload
-              class="avatar-uploader"
-              :action="uploadUrl"
-              :headers="getAuthHeaders()"
-              :show-file-list="false"
-              :on-success="res => $set(model, 'banner', res.url)"
-            >
-              <!-- 有图片就显示图片 否则只显示上传按钮 -->
-              <img v-if="model.banner" :src="model.banner" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
-
           <el-form-item label="类型">
             <el-select v-model="model.categories" multiple>
               <el-option

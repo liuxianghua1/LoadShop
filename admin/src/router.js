@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue'
 import Main from './views/Main.vue'
-import CategoryEdit from './views/CategoryEdit.vue'
-import CategoryList from './views/CategoryList.vue'
 
 import ArticleCategoryEdit from './views/ArticleCategoryEdit.vue'
 import ArticleCategoryList from './views/ArticleCategoryList.vue'
@@ -13,9 +11,6 @@ import GoodsCategoryList from './views/GoodsCategoryList.vue'
 
 import ItemEdit from './views/ItemEdit.vue'
 import ItemList from './views/ItemList.vue'
-
-import HeroEdit from './views/HeroEdit.vue'
-import HeroList from './views/HeroList.vue'
 
 import GoodsEdit from './views/GoodsEdit.vue'
 import GoodsList from './views/GoodsList.vue'
@@ -51,10 +46,6 @@ const router = new Router({
       component: Main,
       children: [
 
-        { path: '/categories/create', component: CategoryEdit },
-        { path: '/categories/edit/:id', component: CategoryEdit, props: true },
-        { path: '/categories/list', component: CategoryList },
-
         { path: '/article_categories/create', component: ArticleCategoryEdit },
         { path: '/article_categories/edit/:id', component: ArticleCategoryEdit, props: true },
         { path: '/article_categories/list', component: ArticleCategoryList },
@@ -67,10 +58,6 @@ const router = new Router({
         { path: '/items/create', component: ItemEdit },
         { path: '/items/edit/:id', component: ItemEdit, props: true },
         { path: '/items/list', component: ItemList },
-
-        { path: '/heroes/create', component: HeroEdit },
-        { path: '/heroes/edit/:id', component: HeroEdit, props: true },
-        { path: '/heroes/list', component: HeroList },
 
         { path: '/goodses/create', component: GoodsEdit },
         { path: '/goodses/edit/:id', component: GoodsEdit, props: true },
