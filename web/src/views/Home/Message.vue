@@ -5,6 +5,17 @@
         <h3 class="jc-around d-flex" style="font-weight: normal;">
           在线留言<span style="color: #999;">ONLINE MESSAGE</span>
         </h3>
+        <br>
+
+
+        <h3 style="font-weight: normal;">领军者全国运营中心：福建福州仓山区百花洲路45号5层</h3>
+        <br>
+        <h3 style="font-weight: normal;">全国免费服务热线：4006-353-588</h3>
+        <br>
+
+        <h3 style="font-weight: normal;">官方网站：http://www.lingjunzhe888.com </h3>
+        <br>
+
 
         <el-form
           :model="ruleForm"
@@ -38,10 +49,6 @@
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
-      </van-tab>
-
-      <van-tab title="联系我们">
-        联系我们
       </van-tab>
     </van-tabs>
   </div>
@@ -121,5 +128,8 @@ export default {
 
 .el-form-item__content {
   margin-left: 70px !important;
+}
+.van-tabs__line {
+  background-color: #84c225 !important;
 }
 </style>
