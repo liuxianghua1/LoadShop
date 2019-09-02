@@ -46,8 +46,6 @@ module.exports = app => {
     app.post('/admin/api/admin_update/:id', async (req, res) => {
         body = req.body
         const { username, password } = req.body
-        
-        console.log(body)
         // select取出明文密码比对
         const user = await AdminUser.findOne({ username }).select('+password')
         const isValid = require('bcryptjs').compareSync(password, user.password)
@@ -85,7 +83,6 @@ module.exports = app => {
     // 根据id来更新一条数据
     router.put('/:id', async (req, res) => {
         const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
-        console.log(req.body)
         res.send(model)
     })
 

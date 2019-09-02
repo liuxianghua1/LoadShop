@@ -1,21 +1,18 @@
 module.exports = app => {
     const router = require('express').Router()
     const mongoose = require('mongoose')
-    const Category = mongoose.model('Category')
     const ArticleCategory = mongoose.model('ArticleCategory')
     const GoodsCategory = mongoose.model('GoodsCategory')
     const Goods = mongoose.model('Goods')
 
     const Article = mongoose.model('Article')
     const Message = mongoose.model('Message')
-    const Hero = mongoose.model('Hero')
     const Ad = mongoose.model('Ad')
 
 
-    // 创建用户
+    // 发送留言
     router.post('/message_add', async (req, res) => {
         body = req.body
-        console.log(body)
         new Message(body).save (function (err, data) {
             if (err) {
                 console.log(err)
@@ -143,34 +140,6 @@ module.exports = app => {
     })
 
 
-    // 英雄列表接口
-    router.get('/heroes/list', async (req, res) => {
-        const parent = await Category.findOne({
-            name: '英雄分类'
-        })
-        const cats = await Category.aggregate([
-            { $match: { parent: parent._id } },
-            {
-                $lookup: {
-                    from: 'heroes',
-                    localField: '_id',
-                    foreignField: 'categories',
-                    as: 'heroList'
-                }
-            }
-        ])
-
-        const subCats = cats.map(v => v._id)
-        cats.unshift({
-            name: '热门',
-            heroList: await Hero.find().where({
-                categories: { $in: subCats }
-            }).limit(10).lean()
-        })
-
-        res.send(cats)
-    })
-
     // 产品列表接口
     router.get('/goodses/list', async (req, res) => {
         const goods = await GoodsCategory.find()
@@ -232,11 +201,6 @@ module.exports = app => {
         res.send(data)
     })
 
-    // 英雄详情接口
-    router.get('/heroes/:id', async (req, res) => {
-        const data = await Hero.findById(req.params.id).populate('categories items1 items2 partners.hero').lean()
-        res.send(data)
-    })
 
     // 产品详情接口
     router.get('/goodses/:id', async (req, res) => {
