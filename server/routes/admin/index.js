@@ -46,7 +46,8 @@ module.exports = app => {
     app.post('/admin/api/admin_update/:id', async (req, res) => {
         body = req.body
         const { username, password } = req.body
-
+        
+        console.log(body)
         // select取出明文密码比对
         const user = await AdminUser.findOne({ username }).select('+password')
         const isValid = require('bcryptjs').compareSync(password, user.password)
@@ -60,7 +61,7 @@ module.exports = app => {
             })
         } else {
             // 执行更新
-            let User = { 'password': body.checkPass, 'avatar': body.avatar }
+            let User = { 'password': body.checkPass, 'avatar': body.avatar, 'status': body.status }
             AdminUser.findByIdAndUpdate(req.params.id, User, function (err, admin) {
                 if (err) {
                     console.log(err)
@@ -74,7 +75,6 @@ module.exports = app => {
 
     })
 
-
     // 创建分类
     router.post('/', async (req, res) => {
         const model = await req.Model.create(req.body)
@@ -85,6 +85,7 @@ module.exports = app => {
     // 根据id来更新一条数据
     router.put('/:id', async (req, res) => {
         const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
+        console.log(req.body)
         res.send(model)
     })
 
@@ -169,7 +170,10 @@ module.exports = app => {
 
         // 返回token
         const token = jwt.sign({ id: user._id }, app.get('secret'))
-        res.send({ token })
+        const avatar = user.avatar
+        const status = user.status
+        const id = user._id
+        res.send({ token, avatar, status, id  })
     })
 
     // 错误处理 捕获异常

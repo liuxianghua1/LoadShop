@@ -33,6 +33,11 @@
         />
       </el-form-item>
 
+      <el-form-item label="用户权限">
+        <el-radio v-model="model.status" :label="0">普通用户</el-radio>
+        <el-radio v-if="status == 0 ? !show : show" v-model="model.status" :label="1">管理员</el-radio>
+      </el-form-item>
+  
       <el-form-item label="头像">
         <el-upload
           class="avatar-uploader"
@@ -61,6 +66,7 @@ export default {
     id: {}
   },
   data() {
+    
     var checkPhone = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("手机号不能为空"));
@@ -96,12 +102,15 @@ export default {
     };
 
     return {
+      status: '', //判断权限
       avatar: "",
+      show: true,
       model: {
         password: "",
         checkPass: "",
         phone: "",
-        username: ""
+        username: "",
+        status: 0, //保存的权限
       },
       rules: {
         username: [
@@ -157,12 +166,17 @@ export default {
       const res = await this.$http.get(`rest/admin_users/${this.id}`);
       // 把数据保存到data中
       this.model = res.data;
+    },
+
+    async xiaoyan() {
+      this.status = localStorage.getItem("status");
     }
   },
 
   created() {
     // id得到后 在执行后面方法
     this.id && this.fetch();
+    this.xiaoyan()
   }
 };
 </script>

@@ -14,15 +14,30 @@
       </el-form-item>
 
       <el-form-item label="原密码" prop="password">
-        <el-input type="password" v-model="model.password" show-password autocomplete="off"></el-input>
+        <el-input
+          type="password"
+          v-model="model.password"
+          show-password
+          autocomplete="off"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="新密码" prop="checkPass">
-        <el-input type="password" v-model="model.checkPass" show-password autocomplete="off"></el-input>
+        <el-input
+          type="password"
+          v-model="model.checkPass"
+          show-password
+          autocomplete="off"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="手机号">
         <el-input v-model.number="model.phone" :disabled="true" />
+      </el-form-item>
+
+      <el-form-item label="用户权限">
+        <el-radio v-model="model.status" :label="0">普通用户</el-radio>
+        <el-radio v-if="status == 0 ? !show : show" v-model="model.status" :label="1">管理员</el-radio>
       </el-form-item>
 
       <el-form-item label="头像">
@@ -68,11 +83,14 @@ export default {
 
     return {
       avatar: "",
+      show: true,
+      status: '',
       model: {
         password: "",
         checkPass: "",
         username: "",
-        phone: ""
+        phone: "",
+        status: "",
       },
       rules: {
         password: [
@@ -94,7 +112,7 @@ export default {
         }
       });
     },
-    
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
@@ -108,7 +126,7 @@ export default {
 
       if (this.id) {
         // 如果有id 那就是更新
-        res = await this.$http.post(`admin_update/${this.id}`, this.model);
+        res = await this.$http.post(`admin_update/${this.id}`, this.model,);
         var err_code = res.data.err_code;
         if (err_code === 2) {
           this.$message({
@@ -130,6 +148,7 @@ export default {
       const res = await this.$http.get(`rest/admin_users/${this.id}`);
       // 把数据保存到data中
       this.model = res.data;
+      this.status = localStorage.getItem("status");
     }
   },
 

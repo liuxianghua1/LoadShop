@@ -62,8 +62,10 @@ export default {
       // sessionStorage.token = res.data.token
       // 窗口关闭可继续使用
       localStorage.token = res.data.token;
+      localStorage.avatar = res.data.avatar;
+      localStorage.status = res.data.status;
+      localStorage.id = res.data.id;
       localStorage.setItem("username", this.model.username);
-
       this.$router.push("/");
 
       this.$message({

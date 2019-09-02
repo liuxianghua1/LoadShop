@@ -80,9 +80,9 @@
           
 
           <el-menu-item-group>
-            <template slot="title">管理员</template>
-            <el-menu-item index="/admin_users/create">新建管理员</el-menu-item>
-            <el-menu-item index="/admin_users/list">管理员列表</el-menu-item>
+            <template slot="title">{{ this.status != 1 ? '用户' : '管理员'}}</template>
+            <el-menu-item index="/admin_users/create">{{ this.status != 1 ? '新建用户' : '新建管理员'}}</el-menu-item>
+            <el-menu-item index="/admin_users/list">{{ this.status != 1 ? '用户列表' : '管理员列表'}}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -90,12 +90,15 @@
 
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
-        
         <el-dropdown>
-          <span>{{this.username}}</span>
+          <el-avatar :src="this.avatar"></el-avatar>
+          <span>
+            {{this.username}}</span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="Add">新增管理员</el-dropdown-item>
-            <el-dropdown-item @click.native="Adminexit">管理员退出</el-dropdown-item>
+            <el-dropdown-item @click.native="Add">{{ this.status != 1 ? '新增用户' : '新增管理员'}}</el-dropdown-item>
+            <el-dropdown-item @click.native="updated">修改密码</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">注销账户</el-dropdown-item>
+            <el-dropdown-item @click.native="Adminexit">{{ this.status != 1 ? '用户退出' : '管理员退出'}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -129,7 +132,10 @@ export default {
     };
     return {
       tableData: Array(20).fill(item),
-      username:[]
+      username:[],
+      avatar:[],
+      status:[],
+      id: []
     };
   },
   methods: {
@@ -141,12 +147,35 @@ export default {
     Add() {
       this.$router.push({ path: "/admin_users/create" });
     },
-    loadComments() {
-      var list = localStorage.getItem("username");
-      this.username = list;
+    updated () {
+      this.$router.push(`/admin_users/update/${this.id}`)
     },
-
+    logout() {
+     this.remove()
+    },
+    loadComments() {
+      this.username = localStorage.getItem("username");
+      this.avatar = localStorage.getItem("avatar");
+      this.status = localStorage.getItem("status");
+      this.id = localStorage.getItem("id");
+    },
+    async remove() {
+      this.$confirm(`确定要删除"${this.username}"吗`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(async () => {
+         await this.$http.delete(`rest/admin_users/${this.id}`);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+          this.Adminexit();
+        })
+    }
   },
+
   created() {
     this.loadComments()
   },

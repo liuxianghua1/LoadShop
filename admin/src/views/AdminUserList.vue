@@ -3,13 +3,16 @@
     <h1>管理员列表</h1>
     <el-table :data="items">
       <el-table-column label="序号" type="index" show-overflow-tooltip width="50"></el-table-column>
-      <el-table-column prop="_id" label="ID" width="240"></el-table-column>
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="phone" label="手机号"></el-table-column>
+      <el-table-column label="权限">
+        <template slot-scope="scope">
+          <span>{{ scope.row.status === 0 ? '普通用户' : '管理员' }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="头像">
         <template slot-scope="scope">
-          <div style="
-    width: 100px;border-radius:50%; ">
+          <div style="width: 100px;border-radius:50%; ">
             <img :src="scope.row.avatar" style="width: 100%;border-radius:50%; " />
           </div>
         </template>
@@ -21,15 +24,21 @@
         </template>
       </el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="180">
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
+          
+        
           <el-button
             type="primary"
             size="small"
+            v-if="status != 1 ? !show : show"
             @click="$router.push(`/admin_users/update/${scope.row._id}`)"
           >编辑</el-button>
 
-          <el-button type="danger" size="small" @click="remove(scope.row)">删除</el-button>
+          <el-button
+          v-if="status != 1 ? !show : show"
+           type="danger" size="small" @click="remove(scope.row)">删除</el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -46,17 +55,24 @@ export default {
   },
   data() {
     return {
-      items: []
+      username: [],
+      items: [],
+      status: '',
+      show: true,
+      model: {
+      }
     };
   },
   methods: {
     async fetch() {
       const res = await this.$http.get("rest/admin_users");
       this.items = res.data;
+      this.username = localStorage.getItem("username");
+      this.status = localStorage.getItem("status");
     },
 
     async remove(row) {
-      this.$confirm(`确定要删除管理员吗"${row.username}"`, "提示", {
+      this.$confirm(`确定要删除"${row.username}"吗`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -87,5 +103,8 @@ export default {
   }
 };
 </script>
-<style >
+<style>
+.el-switch {
+  margin-right: 10px;
+}
 </style>
