@@ -133,8 +133,21 @@ module.exports = app => {
 
     app.use('/admin/api/rest/:resource', resourceMiddleware(), authMiddleware(), router)
     const multer = require('multer')
+    const MAO = require('multer-aliyun-oss');
     // 静态托管
-    const upload = multer({ dest: __dirname + '/../../uploads' })
+    const upload = multer({
+
+        // dest: __dirname + '/../../uploads' 
+        storage: MAO({
+            config: {
+                region: 'oss-cn-hongkong',
+                accessKeyId: 'LTAI4Fqs4F3spetA2835HTRa',
+                accessKeySecret: 'ZlW9FRmHkD7vp48jT2bMfdbr5VTYPA',
+                bucket: 'loadmove'
+            }
+        })
+
+    })
     // 图片上传
     app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
         const file = req.file
@@ -148,7 +161,7 @@ module.exports = app => {
                 message: 'The picture type is incorrect'
             })
         } else {
-            file.url = `http://www.loadmove.top/uploads/${file.filename}`
+            // file.url = `http://www.loadmove.top/uploads/${file.filename}`
             res.send(file)
         }
     })
