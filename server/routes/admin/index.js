@@ -138,7 +138,7 @@ module.exports = app => {
     // 图片上传
     app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
         const file = req.file
-        const {size, mimetype} = req.file
+        const { size, mimetype } = req.file
         const types = ['jpg', 'jpeg', 'png', 'gif']//运行上传的类型
         const tmpType = mimetype.split('/')[1]
 
@@ -148,8 +148,8 @@ module.exports = app => {
                 message: 'The picture type is incorrect'
             })
         } else {
-        file.url = `http://localhost:3000/uploads/${file.filename}`
-        res.send(file)
+            file.url = `http://www.loadmove.top/uploads/${file.filename}`
+            res.send(file)
         }
     })
 
@@ -170,7 +170,7 @@ module.exports = app => {
         const avatar = user.avatar
         const status = user.status
         const id = user._id
-        res.send({ token, avatar, status, id  })
+        res.send({ token, avatar, status, id })
     })
 
     // 错误处理 捕获异常
